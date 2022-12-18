@@ -57,12 +57,12 @@
                             <div style="display: flex; justify-content: space-between">
                                 <div>
                                     <h3>Pihu Inc.</h3>
-                                    <div style="padding-bottom: 5px;">
+                                    {{-- <div style="padding-bottom: 5px;">
                                         1912 Harvest Lane
                                     </div>
                                     <div style="padding-bottom: 5px;">
                                         New York, NY 12210
-                                    </div>
+                                    </div> --}}
                                 </div>
                                 <div>
                                     <h2>INVOICE</h2>
@@ -78,20 +78,20 @@
                                     <h4 style="margin-bottom: 15px;">Bill To</h4>
                                     <div style="padding-bottom: 5px;">pihu</div>
                                     <div style="padding-bottom: 5px;">{{ auth()->user()->address }}</div>
-                                    <div style="padding-bottom: 5px;">Email :{{ auth()->user()->email }}</div>
-                                    <div style="padding-bottom: 5px;">Contact : {{ auth()->user()->contact }}</div>
+                                    <div style="padding-bottom: 5px;">{{ auth()->user()->email }}</div>
+                                    <div style="padding-bottom: 5px;"> {{ auth()->user()->contact }}</div>
                                 </div>
                                 <div style="width: 30%;">
                                     <h4 style="margin-bottom: 15px;">Ship To</h4>
-                                    <div style="padding-bottom: 5px;">Name : {{ $invoicedata->full_name ?? '' }}</div>
+                                    <div style="padding-bottom: 5px;"> {{ $invoicedata->full_name ?? '' }}</div>
                                     <div style="padding-bottom: 5px;">{{ $invoicedata->pickup_address ?? '' }},</div>
-                                    <div style="padding-bottom: 5px;">Email :{{ $invoicedata->email_id ?? '' }}</div>
-                                    <div style="padding-bottom: 5px;">Contact : {{ $invoicedata->mobile_no ?? '' }}</div>
+                                    <div style="padding-bottom: 5px;">{{ $invoicedata->email_id ?? '' }}</div>
+                                    <div style="padding-bottom: 5px;"> {{ $invoicedata->mobile_no ?? '' }}</div>
                                 </div>
                                 <div style="width: 40%; text-align: right;">
                                     <div style="display: flex;">
                                         <h5 style="margin: 10px 0px; width: 50%;">Invoice #</h5><span
-                                            style="margin: 10px 0px;  width: 50%;">#6</span>
+                                            style="margin: 10px 0px;  width: 50%;">#{{ $invoicedata->id ?? '' }}</span>
                                     </div>
                                     <div style="display: flex;">
                                         <h5 style="margin: 10px 0px; width: 50%;">Order Id</h5><span
@@ -138,9 +138,10 @@
                                     <tbody>
                                         <tr>
                                             <td style="text-align: center;">1</td>
-                                            <td> {{ $invoicedata->service_detail ?? "" }}</td>
+                                            <td> {{ $invoicedata->service_detail ?? '' }}</td>
                                             {{-- <td style="text-align:right">100.00</td> --}}
-                                            <td style="text-align:right">{{ isset($invoicedata->price) ? $invoicedata->price : 00 }}</td>
+                                            <td style="text-align:right">
+                                                {{ isset($invoicedata->price) ? $invoicedata->price : 00 }}.00</td>
                                         </tr>
                                         {{-- <tr>
                                             <td style="text-align: center;">1</td>
@@ -150,38 +151,57 @@
                                         </tr> --}}
                                     </tbody>
                                     <tbody>
-                                        {{-- <tr>
-                                            <td style="border: 1px solid transparent;"></td>
-                                            <td style="border-bottom: 1px solid transparent;"></td>
-                                            <td style="text-align:right">Subtotal</td>
-                                            <td style="text-align:right">145.00</td>
-                                        </tr> --}}
-                                        {{-- <tr> --}}
-                                            {{-- <td style="border: 1px solid transparent;"></td> --}}
-                                            {{-- <td style="border-bottom: 1px solid transparent;"></td> --}}
-                                            {{-- <td style="text-align:right">Sales Tax 6.25%</td> --}}
-                                            {{-- <td style="text-align:right">9.06</td> --}}
-                                        {{-- </tr> --}}
+
                                         <tr>
                                             <td style="border: 1px solid transparent;"></td>
-                                            <td style="border-bottom: 1px solid transparent;"></td>
-                                            {{-- <td style="text-align:right">
-                                                <h4 style="margin-bottom: 0px">TOTAL</h4>
-                                            </td> --}}
+                                            <td style="border-bottom: 1px solid transparent;">
+                                                <h4 style="text-align:right;margin:0px;">Subtotal:</h4>
+                                            </td>
+
                                             <td style="text-align:right">
-                                                <h4 style="margin-bottom: 0px"> Total Payble: {{ isset($invoicedata->payble_amount) ? $invoicedata->payble_amount : 00 }} </h4>
+                                                <h4 style="margin: 0px">
+                                                    {{ isset($invoicedata->payble_amount) ? $invoicedata->payble_amount : 0 }}.00
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid transparent;"></td>
+                                            <td style="border-bottom: 1px solid transparent;">
+                                                <h4 style="text-align:right;margin:0px;">Sales Tax:</h4>
+                                            </td>
+
+                                            <td style="text-align:right">
+                                                <h4 style="margin: 0px">
+                                                    0.00
+                                                </h4>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="border: 1px solid transparent;"></td>
+                                            <td style="border-bottom: 1px solid transparent;">
+                                                <h4 style="text-align:right;margin:0px;">TOTAL:</h4>
+                                            </td>
+
+                                            <td style="text-align:right;background-color: #dddddd;">
+                                                <h4 style="margin: 0px">
+                                                    {{ isset($invoicedata->payble_amount) ? $invoicedata->payble_amount : 0 }}.00
+                                                </h4>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
-                            <div style="float: right; margin-top:15px">
-                                {{-- <img style="height: 75px; width: 250px;"
-                                    src="https://writechoice.files.wordpress.com/2019/01/steve_jobs_signature.png" /> --}}
+                            <div style="float: right; width:30%">
+                                <div style="text-align: center; margin-top:50px;font-weight:700;">
                                     {{ auth()->user()->name }}
+                                </div>
+                                <hr>
+                                <div style="text-align: center; font-weight:700;">
+                                    <h3 style="margin: 0px">Signture</h3>
+                                </div>
                             </div>
-                            
-                            <div style="margin-top: 60px;">
+
+                            <div style="margin-top: 250px;">
                                 <h4 style="margin-bottom: 15px;">Terms & Conditions</h4>
                                 <div style="margin-bottom: 25px;">Payment is due within 15 days</div>
                                 <div>Please make checks payable to: Pihu Inc.</div>
