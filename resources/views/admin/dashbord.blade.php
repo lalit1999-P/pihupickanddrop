@@ -169,7 +169,7 @@
                                         @foreach ($TotalCount['OrderDetails'] as $value)
                                             <tr>
                                                 <td>{{ $no++ }}</td>
-                                                <td>{{ $value->first_name }} {{ $value->sur_name }} </td>
+                                            <td>{{ $value->full_name }} </td>
                                                 </td>
                                                 <td>{{ $value->email_id }}</td>
                                                 <td>{{ $value->mobile_no }}</td>
