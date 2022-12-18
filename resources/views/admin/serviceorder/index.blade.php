@@ -83,7 +83,8 @@
                                                     <span class="badge badge-primary">New
                                                         Order</span>
                                                 @else
-                                                    <span class="badge badge-success">{{ $value->DriverUsers->name }}</span>
+                                                    <span
+                                                        class="badge badge-success">{{ $value->DriverUsers ? $value->DriverUsers->name : '' }}</span>
                                                 @endif
                                             </td>
                                         @endif
@@ -98,7 +99,8 @@
                                                 </button>
                                                 @if ($value->invoice_date != null && $value->payble_amount != null)
                                                     <a href="{{ route('view-invoice-serviceorder', $value->id) }}"
-                                                        class="btn btn-warning btn-sm"><i style="color: black" class="fas fa-eye"></i></a>
+                                                        class="btn btn-warning btn-sm"><i style="color: black"
+                                                            class="fas fa-eye"></i></a>
                                                 @endif
                                             </form>
                                         </td>

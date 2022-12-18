@@ -187,7 +187,7 @@
                                                                 Order</span>
                                                         @else
                                                             <span
-                                                                class="badge badge-primary">{{ $value->DriverUsers->name }}</span>
+                                                                class="badge badge-primary">{{ $value->DriverUsers ? $value->DriverUsers->name : '' }}</span>
                                                         @endif
                                                     </td>
                                                 @endif

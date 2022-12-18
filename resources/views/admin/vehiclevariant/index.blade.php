@@ -57,14 +57,14 @@
                                 @foreach ($vehiclevariant as $value)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $value->VehicleModel->vehicle_model }}</td>
+                                        <td>{{ $value->VehicleModel ? $value->VehicleModel->vehicle_model : null }}</td>
                                         <td>{{ $value->vehicle_variant }}</td>
                                         <td>
                                             <form method="POST" action="{{ route('delete-vehicle-variant', $value->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 <a href="{{ route('edit-vehicle-variant', $value->id) }}"
-                                                    class="btn btn-info btn-sm"> <i  class="fas fa-pencil-alt">
+                                                    class="btn btn-info btn-sm"> <i class="fas fa-pencil-alt">
                                                     </i></a>
                                                 <button type="submit" class="btn btn-danger btn-sm show_confirm"
                                                     data-toggle="tooltip" title='Delete'><i
