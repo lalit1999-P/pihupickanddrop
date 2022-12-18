@@ -14,11 +14,11 @@ class ExportUser implements FromCollection, withHeadings
     public function headings(): array
     {
         return [
-            'Name','Email','Contact','Status','City','Address','Created time'
+            'Name','Email','Contact','Status','Address','Created time'
         ];
     }
     public function collection()
     {
-        return User::where('user_type',2)->select('name','email','contact','status','city','address','created_at')->get();
+        return User::where('user_type',2)->select('name','email','contact','status','address','created_at')->get();
     }
 }

@@ -56,7 +56,7 @@ class UserController extends Controller
             'status' => 'required',
             'blood_group' => 'required',
             'gender' => 'required',
-            'address' => 'required|max:250',
+            'address' => 'required|max:500',
             'password' => 'nullable',
             'password_confirmation' => 'nullable|required_with:password|same:password',
             'pan' => 'required|max:10|min:10',

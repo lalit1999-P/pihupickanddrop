@@ -75,7 +75,7 @@ class EmployeeController extends Controller
         if ($request->id) {
             toastr()->success('Successfully Update User!', 'Update User');
         } else {
-            UserRole::create(['role_id' => 2, 'user_id' => $user->id]);
+            UserRole::create(['role_id' => 3, 'user_id' => $user->id]);
             toastr()->success('Successfully Add User!', 'Add User');
         }
         return redirect('employee');

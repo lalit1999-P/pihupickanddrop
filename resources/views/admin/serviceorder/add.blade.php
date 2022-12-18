@@ -400,8 +400,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="checkbox" id="same_drop_off_date" class="same_drop_off_date"
-                                                name="same_drop_off_date" value="1">
+
                                             <label>Drop off Date</label>
                                             <input type="date" id="drop_off_date" name="drop_off_date"
                                                 class="form-control"
@@ -413,8 +412,8 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <input type="checkbox" id="same_drop_off_time" class="same_drop_off_time"
-                                                name="same_drop_off_time" value="1">
+                                            {{-- <input type="checkbox" id="same_drop_off_time" class="same_drop_off_time"
+                                                name="same_drop_off_time" value="1"> --}}
                                             <label>Drop off Time</label>
                                             <select class="form-control select2" id="drop_off_time" name="drop_off_time"
                                                 style="width: 100%;">
@@ -518,8 +517,11 @@
         }
         $(document).ready(function() {
             $('.same_location').click(function() {
+                // alert("hii");
                 if ($('.same_location').prop("checked")) {
+                    // alert("hiii checked ");
                     var add = $('#pickup_address').val();
+                    
                     $("textarea#drop_address").html(add)
                 }
             });

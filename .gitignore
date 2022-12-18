@@ -17,3 +17,4 @@ yarn-error.log
 /.idea
 /.vscode
 /images/employee_image/*
+/public/images/driver_image/*
