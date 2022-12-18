@@ -65,7 +65,7 @@
                                         <td>{{ $value->email }}</td>
                                         <td>{{ $value->contact }}</td>
                                         <td>
-                                            @if ($value->status == 0)
+                                            @if ($value->status == 1)
                                                 <span class="badge badge-success">Active</span>
                                             @else
                                                 <span class="badge badge-danger">Inactive</span>
