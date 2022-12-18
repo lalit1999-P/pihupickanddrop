@@ -49,28 +49,31 @@
                             </div>
                             <div class="form-group d-md-flex justify-content-end">
                                 <div class="w-50 text-md-right">
-                                    <a href="{{route('forgot-passwords')}}" style="color: #fff">Forgot Password?</a>
+                                    <a href="{{ route('forgot-passwords') }}" style="color: #fff">Forgot Password?</a>
                                 </div>
                             </div>
                         </form>
-                        {{-- <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
-                        <div class="social d-flex text-center">
-                            <a href="#" class="px-2 py-2 mr-md-1 rounded"><span
-                                    class="ion-logo-facebook mr-2"></span> Facebook</a>
-                            <a href="#" class="px-2 py-2 ml-md-1 rounded"><span
-                                    class="ion-logo-twitter mr-2"></span> Twitter</a>
-                        </div> --}}
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <script src="js/jquery.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="{{ asset('assets/plugins/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/popper.js') }}"></script>
+    <script src="{{ asset('js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/custom.js') }}"></script>
-
+    <script>
+        $(".toggle-password").click(function() {
+            $(this).prev().toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("type"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    </script>
 </body>
 
 </html>

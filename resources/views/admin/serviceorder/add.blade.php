@@ -215,42 +215,12 @@
                                 </div>
                             </div>
 
-                            <div class="pl-lg-4">
+                            {{-- <div class="pl-lg-4">
                                 <br>
                                 <h6 class="heading-small text-muted mb-4">Address Detail</h6>
                                 <hr />
-                                <div class="row">
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Pickup Location Address {!! fieldRequired() !!}</label>
-                                            <textarea type="text" id="pickup_address" name="pickup_address" class="form-control"> {{ isset($Order) ? $Order->pickup_address : '' }}</textarea>
-                                            @if ($errors->has('pickup_address'))
-                                                <span class="alert-danger">{{ $errors->first('pickup_address') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <input type="checkbox" id="same_location" class="same_location"
-                                                name="same_location" value="1">
-                                            <label> Same As Drop off Address {!! fieldRequired() !!}</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <textarea type="text" id="drop_address" name="drop_address" class="form-control"> {{ isset($Order) ? $Order->drop_address : '' }}</textarea>
-                                            @if ($errors->has('drop_address'))
-                                                <span class="alert-danger">{{ $errors->first('drop_address') }}</span>
-                                            @endif
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                               
+                            </div> --}}
 
                             <div class="pl-lg-4">
                                 <br>
@@ -469,6 +439,33 @@
                                             @endif
                                         </div>
                                     </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Pickup Location Address {!! fieldRequired() !!}</label>
+                                            <textarea style="margin-top:16px " type="text" id="pickup_address" name="pickup_address" class="form-control"> {{ isset($Order) ? $Order->pickup_address : '' }}</textarea>
+                                            @if ($errors->has('pickup_address'))
+                                                <span class="alert-danger">{{ $errors->first('pickup_address') }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <input type="checkbox" id="same_location" class="same_location"
+                                                name="same_location" value="1">
+                                            <label> Same As Drop off Address {!! fieldRequired() !!}</label>
+                                        </div>
+                                        <div class="form-group">
+                                            <textarea type="text" id="drop_address" name="drop_address" class="form-control"> {{ isset($Order) ? $Order->drop_address : '' }}</textarea>
+                                            @if ($errors->has('drop_address'))
+                                                <span class="alert-danger">{{ $errors->first('drop_address') }}</span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    {{-- <div class="col-md-12">
+                                        
+                                    </div> --}}
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">

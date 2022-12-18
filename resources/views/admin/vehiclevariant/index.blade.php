@@ -64,7 +64,7 @@
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
                                                 <a href="{{ route('edit-vehicle-variant', $value->id) }}"
-                                                    class="btn btn-warning btn-sm"> <i class="fas fa-lock">
+                                                    class="btn btn-info btn-sm"> <i  class="fas fa-pencil-alt">
                                                     </i></a>
                                                 <button type="submit" class="btn btn-danger btn-sm show_confirm"
                                                     data-toggle="tooltip" title='Delete'><i

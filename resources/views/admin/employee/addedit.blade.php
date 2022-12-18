@@ -156,7 +156,9 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputClientCompany"> Profile
-                                                    Image{!! fieldRequired() !!}</label>
+                                                    Image
+                                                    {{-- {!! fieldRequired() !!} --}}
+                                                </label>
                                                 <input type="file" id="image" accept="image/png, image/jpeg"
                                                     name="image" class="form-control"
                                                     value="{{ isset($User) ? $User->image : old('image') }}">

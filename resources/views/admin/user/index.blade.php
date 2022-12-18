@@ -82,7 +82,7 @@
                                                     data-toggle="tooltip" title='Delete'><i
                                                         class="fas fa-trash"></i></button>
                                                 <a href="{{ route('change-password', $value->id) }}"
-                                                    class="btn btn-warning btn-sm"> <i class="fas fa-lock">
+                                                    class="btn btn-warning btn-sm"> <i style="color: black" class="fas fa-lock">
                                                     </i></a>
                                             </form>
 

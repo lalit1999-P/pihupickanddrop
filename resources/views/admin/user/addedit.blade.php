@@ -201,7 +201,7 @@
                                                         name="password">
                                                     <div class="input-group-append show_password">
                                                         <div class="input-group-text">
-                                                            <span class="fa fa-eye-slash"></span>
+                                                            <span class="fa fa-fw field-icon  fa-eye-slash"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -333,7 +333,7 @@
                                         <div class="form-group">
                                             <label class="form-control-label" for="input-username"> Blood Group
                                                 {!! fieldRequired() !!} </label>
-                                            <select class="form-control" name="blood_group" id="blood_group">
+                                            <select class="form-control select2" name="blood_group" id="blood_group">
                                                 <option value=" ">Select Blood Group </option>
                                                 @if (old('blood_group'))
                                                     <option value="O+"
