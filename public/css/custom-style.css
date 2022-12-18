@@ -1,0 +1,63 @@
+.custom-navbar .nav-link {
+  color: rgba(0, 0, 0, 0.55) !important;
+}
+
+.custom-date {
+  color: #fff !important;
+}
+
+.dataTables_filter,
+#example1_paginate {
+  float: right;
+}
+
+.custom-navbar .dropdown-menu {
+  right: 0 !important;
+  left: auto !important;
+  width: 200px;
+}
+
+.badge {
+  display: inline-block !important;
+  padding: 0.35em 0.65em !important;
+  font-size: .75em !important;
+  font-weight: 700 !important;
+  line-height: 1 !important;
+  color: #fff !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+  vertical-align: baseline !important;
+  border-radius: 0.25rem !important;
+}
+
+.badge-primary {
+  background-color: #007bff;
+}
+
+.badge-secondary {
+  background-color: #6c757d;
+}
+
+.badge-success {
+  background-color: #28a745;
+}
+
+.badge-danger {
+  background-color: #dc3545;
+}
+
+.badge-warning {
+  background-color: #ffc107;
+}
+
+.badge-info {
+  background-color: #17a2b8;
+}
+
+.badge-light {
+  background-color: #f8f9fa;
+}
+
+.badge-dark {
+  background-color: #343a40;
+}
