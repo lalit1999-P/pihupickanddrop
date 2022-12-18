@@ -168,16 +168,16 @@
                                                 {!! fieldRequired() !!} </label>
                                             <select class="form-control" name="status" id="status">
                                                 @if (old('status'))
-                                                    <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>
-                                                        Active </option>
                                                     <option value="1" {{ old('status') == 1 ? 'selected' : '' }}>
+                                                        Active </option>
+                                                    <option value="0" {{ old('status') == 0 ? 'selected' : '' }}>
                                                         Inactive </option>
                                                 @else
-                                                    <option value="0"
-                                                        {{ isset($User->status) ? ($User->status == '0' ? 'selected' : '') : '' }}>
-                                                        Active </option>
                                                     <option value="1"
                                                         {{ isset($User->status) ? ($User->status == '1' ? 'selected' : '') : '' }}>
+                                                        Active </option>
+                                                    <option value="0"
+                                                        {{ isset($User->status) ? ($User->status == '0' ? 'selected' : '') : '' }}>
                                                         Inactive </option>
                                                 @endif
                                             </select>
@@ -554,8 +554,7 @@
                                                     class="alert-danger">{{ $errors->first('account_details_image') }}</span>
                                             @endif
                                             @if (isset($User->UserDetails))
-                                                @if ($User->UserDetails->account_details_image &&
-                                                    file_exists(public_path('images/driver_image/' . $User->UserDetails->account_details_image)))
+                                                @if ($User->UserDetails->account_details_image && file_exists(public_path('images/driver_image/' . $User->UserDetails->account_details_image)))
                                                     <img src="{{ asset('images/driver_image') . '/' . $User->UserDetails->account_details_image }}"
                                                         alt="Image" class="brand-image"
                                                         style="width:100px;hieght:100px">
@@ -805,5 +804,23 @@
             </div>
         </div>
     </div>
-
 @endsection
+@push('extra-js')
+    <script>
+        var calculateAge = function(birthday) {
+            var now = new Date();
+            var past = new Date(birthday);
+            var nowYear = now.getFullYear();
+            var pastYear = past.getFullYear();
+            var age = nowYear - pastYear;
+
+            return age;
+        };
+
+        $(document).on('change', '.year_count', function() {
+            var birthday = $(this).val();
+            // alert("hii");
+            $("#input-age").val(calculateAge(birthday));
+        });
+    </script>
+@endpush

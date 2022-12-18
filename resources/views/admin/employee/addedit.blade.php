@@ -91,12 +91,22 @@
                                                         <label class="form-control-label" for="input-username"> Status
                                                             {!! fieldRequired() !!}</label>
                                                         <select class="form-control" name="status" id="status">
-                                                            <option value="0"
-                                                                {{ isset($User->status) ? ($User->status == '0' ? 'selected' : '') : '' }}>
-                                                                Active </option>
-                                                            <option value="1"
-                                                                {{ isset($User->status) ? ($User->status == '1' ? 'selected' : '') : '' }}>
-                                                                Inactive </option>
+                                                            @if (old('status'))
+                                                                <option value="1"
+                                                                    {{ old('status') == "1" ? "selected" : "" }}>
+                                                                    Active </option>
+                                                                <option value="0"
+                                                                    {{ old('status') == "0" ? "selected" : "" }}>
+                                                                    Inactive </option>
+                                                            @else
+                                                                <option value="1"
+                                                                    {{ isset($User->status) ? ($User->status == '1' ? 'selected' : '') : '' }}>
+                                                                    Active </option>
+                                                                <option value="0"
+                                                                    {{ isset($User->status) ? ($User->status == '0' ? 'selected' : '') : '' }}>
+                                                                    Inactive </option>
+                                                            @endif
+
                                                         </select>
                                                         @if ($errors->has('status'))
                                                             <span

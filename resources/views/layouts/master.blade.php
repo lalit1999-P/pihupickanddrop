@@ -233,6 +233,7 @@
 </body>
 
 </html>
+@stack('extra-js')
 <script>
     const displayTime = document.querySelector(".display-time");
     // Time
