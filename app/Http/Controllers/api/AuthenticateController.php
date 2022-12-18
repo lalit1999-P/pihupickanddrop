@@ -29,6 +29,7 @@ class AuthenticateController extends Controller
         if (Auth::attempt($credentials) && auth()->user()->user_type == "2") {
             $user = auth()->user();
             $this->response['data'] = new LoginResource($user);
+            // $this->response['status'] = Response::HTTP_OK;
             $this->response["token"] = $user->createToken('api_token')->plainTextToken;
             $this->response['message'] = "Login sucessfully";
         } else {

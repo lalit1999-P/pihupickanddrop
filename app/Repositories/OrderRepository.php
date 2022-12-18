@@ -57,7 +57,7 @@ class OrderRepository
     {
         // dd($request);   
         $orderId = $request['order_id'] ?? "";
-        $type = $request['order_type'] ?? "";
+        $type = $request['type'] ?? "";
         foreach ($request['img_url'] as $img) {
             $img_name = fileUpload('order_img', $img);
             $orderImg[] = [
