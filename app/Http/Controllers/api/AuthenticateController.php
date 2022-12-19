@@ -30,14 +30,26 @@ class AuthenticateController extends Controller
             $user = auth()->user();
             $this->response['data'] = new LoginResource($user);
             // $this->response['status'] = Response::HTTP_OK;
-            $this->response["token"] = $user->createToken('api_token')->plainTextToken;
+            $token = $user->createToken('api_token')->plainTextToken;
+            $response = [
+                'user' => User::join('user_details', 'user_details.user_id', '=', 'users.id')
+                    ->select('users.id as user_id', 'users.name as user_name', 'user_type', 'email', 'contact', 'user_details.*')->where('users.id', auth()->user()->id)->first(),
+                'token' => $token,
+                'status' => 200
+            ];
             $this->response['message'] = "Login sucessfully";
         } else {
-            $this->response["message"] = "Invalid login credential";
+            $response = [
+                'message' => 'User Does Not exist',
+                'status' => 200
+            ];
+            // $this->response["message"] = "Invalid login credential";
         }
 
-        $this->status = Response::HTTP_OK;
-        return $this->returnResponse();
+        return response($response, 200);
+
+        // $this->status = Response::HTTP_OK;
+        // return $this->returnResponse();
     }
 
     public function send_otp(SendOtpRequest $request)
