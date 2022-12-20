@@ -123,7 +123,7 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#"
                                 id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
-                                if (file_exists(asset('images/employee_image/' . auth()->user()->image))) {
+                                if (file_exists('images/employee_image/' . auth()->user()->image)) {
                                     $imagepath = asset('images/employee_image/' . auth()->user()->image);
                                 } else {
                                     $imagepath = asset('images/no-image-icon-6.png');
