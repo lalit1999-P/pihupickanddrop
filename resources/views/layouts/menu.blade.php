@@ -1,4 +1,4 @@
-<aside class="left-sidebar" data-sidebarbg="skin6">
+<aside class="left-sidebar" data-sidebarbg="skin6" style="padding-top: 100px">
     <!-- Sidebar scroll-->
     <div class="scroll-sidebar">
         <!-- Sidebar navigation-->

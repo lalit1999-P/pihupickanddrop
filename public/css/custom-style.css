@@ -61,3 +61,21 @@
 .badge-dark {
   background-color: #343a40;
 }
+.custom-navbar-brand{
+  justify-content: center !important;
+}
+
+.custom-navbar-brand img{
+width: 175px;
+}
+
+
+
+@media only screen and (max-width: 786px) {
+  .custom-navbar-brand{
+    justify-content: flex-start !important;
+  }  
+  .custom-navbar-brand img{
+    width: 100px;
+  }
+}

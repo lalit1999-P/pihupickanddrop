@@ -28,16 +28,23 @@ class AuthenticateController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::attempt($credentials) && auth()->user()->user_type == "2") {
             $user = auth()->user();
-            $this->response['data'] = new LoginResource($user);
-            // $this->response['status'] = Response::HTTP_OK;
-            $token = $user->createToken('api_token')->plainTextToken;
-            $response = [
-                'user' => User::join('user_details', 'user_details.user_id', '=', 'users.id')
-                    ->select('users.id as user_id', 'users.name as user_name', 'user_type', 'email', 'contact', 'user_details.*')->where('users.id', auth()->user()->id)->first(),
-                'token' => $token,
-                'status' => 200
-            ];
-            $this->response['message'] = "Login sucessfully";
+            if ($user->status == 0) {
+                $this->response['data'] = new LoginResource($user);
+                // $this->response['status'] = Response::HTTP_OK;
+                $token = $user->createToken('api_token')->plainTextToken;
+                $response = [
+                    'user' => User::join('user_details', 'user_details.user_id', '=', 'users.id')
+                        ->select('users.id as user_id', 'users.name as user_name', 'user_type', 'email', 'contact', 'user_details.*')->where('users.id', auth()->user()->id)->first(),
+                    'token' => $token,
+                    'status' => 200
+                ];
+                // $this->response['message'] = "Login sucessfully";
+            } else {
+                $response = [
+                    'message' => 'User is Inactive',
+                    'status' => 200
+                ];
+            }
         } else {
             $response = [
                 'message' => 'User Does Not exist',

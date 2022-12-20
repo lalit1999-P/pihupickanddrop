@@ -55,17 +55,17 @@
         <!-- Topbar header - style you can find in pages.scss -->
         <!-- ============================================================== -->
         <header class="topbar" data-navbarbg="skin6">
-            <nav class="navbar top-navbar navbar-expand-md navbar-dark">
+            <nav class="navbar top-navbar navbar-expand-md navbar-dark" style="align-items: flex-start">
                 <div class="navbar-header" data-logobg="skin6">
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand" href="index.html">
+                    <a class="navbar-brand custom-navbar-brand" href="{{route('/')}}">
                         <!-- Logo icon -->
                         <b class="logo-icon">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                             <!-- Dark Logo icon -->
-                            <img src="{{ asset('assets/images/logo-icon.png') }}" alt="homepage" class="dark-logo" />
+                            <img src="{{ asset('images/pihu.png') }}" alt="homepage" class="dark-logo pt-1" />
 
                         </b>
                         <!--End Logo icon -->
@@ -73,8 +73,6 @@
                         <span class="logo-text">
                             <!-- dark Logo text -->
                             {{-- <img src="../assets/images/logo-text.png" alt="homepage" class="dark-logo" /> --}}
-                            Pihu
-
                         </span>
                     </a>
                     <!-- ============================================================== -->
