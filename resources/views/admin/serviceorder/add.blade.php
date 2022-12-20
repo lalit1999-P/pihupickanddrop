@@ -515,16 +515,11 @@
             }
 
         }
-        $(document).ready(function() {
-            $('.same_location').click(function() {
-                // alert("hii");
-                if ($('.same_location').prop("checked")) {
-                    // alert("hiii checked ");
-                    var add = $('#pickup_address').val();
-                    
-                    $("textarea#drop_address").html(add)
-                }
-            });
+
+        $(document).on("click", ".same_location", function() {
+            if ($(this).prop("checked")) {
+                $("#drop_address").val($('#pickup_address').val())
+            }
         });
     </script>
 
