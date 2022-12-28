@@ -145,8 +145,8 @@ class ServiceOrderController extends Controller
 
     public function viewinvoice($id)
     {
-        $data = Order::with(['Users', 'DriverUsers', "Varient", "vehicleModel"])->where('id', $id)->first();
-        // dd($data);
+        $data = Order::with(['Users', 'DriverUsers', "Varient", "vehicleModel", "location"])->where('id', $id)->first();
+        //  dd($data);
         return view('admin.serviceorder.view-invoice')->with('invoicedata', $data);
     }
 
@@ -169,7 +169,8 @@ class ServiceOrderController extends Controller
     }
     public function generateInvoicePDF(Request $request, $id)
     {
-        $data = Order::with(['Users', 'DriverUsers', "Varient", "vehicleModel","location"])->where('id', $id)->first()->ToArray();
+        $data = Order::with(['Users', 'DriverUsers', "Varient", "vehicleModel", "location"])->where('id', $id)->first()->ToArray();
+        // dd($data);
         $pdf = PDF::loadView('admin.serviceorder.myPDF', $data);
         return $pdf->download('invoice.pdf');
     }

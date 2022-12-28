@@ -28,7 +28,7 @@ class AuthenticateController extends Controller
         $credentials = $request->only('contact', 'password');
         if (Auth::attempt($credentials) && auth()->user()->user_type == "2") {
             $user = auth()->user();
-            if ($user->status == 0) {
+            if ($user->status == 1) {
                 $this->response['data'] = new LoginResource($user);
                 // $this->response['status'] = Response::HTTP_OK;
                 $token = $user->createToken('api_token')->plainTextToken;
@@ -57,6 +57,19 @@ class AuthenticateController extends Controller
 
         // $this->status = Response::HTTP_OK;
         // return $this->returnResponse();
+    }
+
+    public function viewProfile()
+    {
+        $data = User::join('user_details', 'user_details.user_id', '=', 'users.id')
+            ->select('users.id as user_id', 'users.name as user_name', 'user_type', 'email', 'contact', 'user_details.*')->where('users.id', auth()->user()->id)->first();
+
+        $response = [
+            'message' => 'Driver User Data',
+            'data' => $data,
+            'status' => 200
+        ];
+        return $response;
     }
 
     public function send_otp(SendOtpRequest $request)

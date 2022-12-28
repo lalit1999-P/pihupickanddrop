@@ -65,7 +65,7 @@
                                     </div> --}}
                                 </div>
                                 <div class="text-center">
-                                    <img src="{{asset('images/pihu.png')}}" style="width: 300px;height:150px" />
+                                    <img src="{{ asset('images/pihu.png') }}" style="width: 300px;height:150px" />
                                 </div>
                                 <div>
                                     <h2>INVOICE</h2>
@@ -79,10 +79,15 @@
                             <div style="display: flex;">
                                 <div style="width: 30%;">
                                     <h4 style="margin-bottom: 15px;">Bill To</h4>
-                                    <div style="padding-bottom: 5px;">pihu</div>
+                                    <div style="padding-bottom: 5px;">
+                                        {{ isset($invoicedata->location) ? $invoicedata->location->location : '' }}
+                                    </div>
+                                    <div style="padding-bottom: 5px;">
+                                        {{ isset($invoicedata->location) ? $invoicedata->location->address : '' }}</div>
+                                    {{-- <div style="padding-bottom: 5px;">pihu</div>
                                     <div style="padding-bottom: 5px;">{{ auth()->user()->address }}</div>
                                     <div style="padding-bottom: 5px;">{{ auth()->user()->email }}</div>
-                                    <div style="padding-bottom: 5px;"> {{ auth()->user()->contact }}</div>
+                                    <div style="padding-bottom: 5px;"> {{ auth()->user()->contact }}</div> --}}
                                 </div>
                                 <div style="width: 30%;">
                                     <h4 style="margin-bottom: 15px;">Ship To</h4>

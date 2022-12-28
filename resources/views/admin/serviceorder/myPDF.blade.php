@@ -81,12 +81,12 @@
             <tr>
                 <td style="width: 25%;">
                     <h4 style="margin:0px;margin-bottom: 15px;">Bill To</h4>
-                    <div style="padding-bottom: 5px;">{{ isset($location) ? $location->location : '' }}</div>
-                    <div style="padding-bottom: 5px;">{{ isset($location) ? $location->address : '' }}</div>
-                    {{-- <div style="padding-bottom: 5px;white-space:nowrap;">{{ auth()->user()->email }}</div> --}}
-                    {{-- <div style="padding-bottom: 5px;">{{ auth()->user()->contact }}</div> --}}
+                    <div style="padding-bottom: 5px;">{{ isset($location) ? $location['location'] : '' }}</div>
+                    <div style="padding-bottom: 5px;">{{ isset($location) ? $location['address'] : '' }}</div>
+                    <div style="padding-bottom: 5px;white-space:nowrap;"></div>
+                    <div style="padding-bottom: 5px;"></div>
                 </td>
-                <td style="width: 25%; white-space:nowrap;">
+                <td style="width: 25%;">
                     <h4 style="margin:0px;margin-bottom: 15px;">Ship To</h4>
                     <div style="padding-bottom: 5px;">{{ $full_name ?? '' }}
                     </div>
