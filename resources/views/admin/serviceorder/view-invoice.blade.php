@@ -64,6 +64,9 @@
                                         New York, NY 12210
                                     </div> --}}
                                 </div>
+                                <div class="text-center">
+                                    <img src="{{asset('images/pihu.png')}}" style="width: 300px;height:150px" />
+                                </div>
                                 <div>
                                     <h2>INVOICE</h2>
                                 </div>

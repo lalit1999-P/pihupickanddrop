@@ -59,6 +59,10 @@
                             New York, NY 12210
                         </div> --}}
                     </td>
+                    <div class="text-center">
+                        <img src="{{ public_path('images/pihu.png') }}"
+                            style="width: 200px;height:100px;margin:0px;margin-bottom:15px;`" />
+                    </div>
                     <td>
                         <h2 style="float: right;margin:0px;">INVOICE</h2>
                     </td>
@@ -77,10 +81,10 @@
             <tr>
                 <td style="width: 25%;">
                     <h4 style="margin:0px;margin-bottom: 15px;">Bill To</h4>
-                    <div style="padding-bottom: 5px;">pihu</div>
-                    <div style="padding-bottom: 5px;">{{ auth()->user()->address }}</div>
-                    <div style="padding-bottom: 5px;white-space:nowrap;">{{ auth()->user()->email }}</div>
-                    <div style="padding-bottom: 5px;">{{ auth()->user()->contact }}</div>
+                    <div style="padding-bottom: 5px;">{{ isset($location) ? $location->location : '' }}</div>
+                    <div style="padding-bottom: 5px;">{{ isset($location) ? $location->address : '' }}</div>
+                    {{-- <div style="padding-bottom: 5px;white-space:nowrap;">{{ auth()->user()->email }}</div> --}}
+                    {{-- <div style="padding-bottom: 5px;">{{ auth()->user()->contact }}</div> --}}
                 </td>
                 <td style="width: 25%; white-space:nowrap;">
                     <h4 style="margin:0px;margin-bottom: 15px;">Ship To</h4>
@@ -225,7 +229,7 @@
                 <h3 style="margin: 0px">Signture</h3>
             </div>
         </div>
-      
+
         <div style="margin-top: 60px;position: absolute; bottom:0px">
             <h4 style="margin-bottom: 15px;">Terms & Conditions</h4>
             <div style="margin-bottom: 25px;">Payment is due within 15 days</div>

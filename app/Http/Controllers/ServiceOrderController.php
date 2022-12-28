@@ -169,7 +169,7 @@ class ServiceOrderController extends Controller
     }
     public function generateInvoicePDF(Request $request, $id)
     {
-        $data = Order::with(['Users', 'DriverUsers', "Varient", "vehicleModel"])->where('id', $id)->first()->ToArray();
+        $data = Order::with(['Users', 'DriverUsers', "Varient", "vehicleModel","location"])->where('id', $id)->first()->ToArray();
         $pdf = PDF::loadView('admin.serviceorder.myPDF', $data);
         return $pdf->download('invoice.pdf');
     }
