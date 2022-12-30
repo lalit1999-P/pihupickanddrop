@@ -11,6 +11,9 @@ use App\Traits\ResponseTrait;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
+use App\Models\DailyCheck;
+use Illuminate\Support\Facades\Validator;
+
 
 class OrderController extends Controller
 {
@@ -108,5 +111,63 @@ class OrderController extends Controller
             $this->response["message"] = $th->getMessage();
         }
         return $this->returnResponse();
+    }
+
+    public function newOrder(Request $request)
+    {
+        try {
+            $newOrderHistory = $this->orderRepository->getNewOrder();
+            $this->status = Response::HTTP_OK;
+            $this->response["data"] =  $newOrderHistory;
+            $this->response["message"] = "succesfully get new service request";
+        } catch (Exception $th) {
+            $this->response["message"] = $th->getMessage();
+        }
+        return $this->returnResponse();
+    }
+    public function daily_check(Request $request)
+    {
+        if (!auth()->user()) {
+            return response()->json([
+                'message' => 'Invalid Token',
+                'status' => 403
+            ], 200);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'date' => "required",
+
+        ]);
+
+        if ($validator->fails()) {
+            $response = [
+                'message' => $validator->errors()->first(),
+                'status' => 403
+
+            ];
+            return response($response, 200);
+        }
+        $daily_check = new DailyCheck();
+        $daily_check->user_id = auth()->user()->id;
+        $daily_check->date = $request->date;
+        $daily_check->shower = $request->shower;
+        $daily_check->charger = $request->charger;
+        $daily_check->power_bank = $request->power_bank;
+        $daily_check->uniform     = $request->uniform;
+        $daily_check->perfume = $request->perfume;
+        $daily_check->pen = $request->pen;
+        $daily_check->swaping_machine = $request->swaping_machine;
+        $daily_check->qr_code = $request->qr_code;
+        $daily_check->id_card = $request->id_card;
+        $daily_check->clean_shave = $request->clean_shave;
+
+        $daily_check->save();
+        $message = "Saved Successfully.";
+        $response = [
+            'message' => $message,
+            'dailyCheck' => $daily_check,
+            'status' => 200
+        ];
+        return response($response, 200);
     }
 }

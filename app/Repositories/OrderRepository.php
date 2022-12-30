@@ -78,4 +78,9 @@ class OrderRepository
     {
         return Order::where('driver_id', auth()->user()->id)->with('DriverUsers', 'Varient', 'vehicleModel', 'location')->get();
     }
+    public function getNewOrder()
+    {
+        return Order::where('driver_id', auth()->user()->id)->where('status', 0)->with('DriverUsers', 'Varient', 'vehicleModel', 'location')->get();
+    }
+   
 }

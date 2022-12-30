@@ -202,4 +202,5 @@ class AuthenticateController extends Controller
         ];
         return response($response, 200);
     }
+    
 }
