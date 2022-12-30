@@ -1,6 +1,9 @@
 <?php
 
-use App\Http\Controllers\api\Api;
+// use App\Http\Controllers\api\Api;
+
+use App\Http\Controllers\Api;
+// use App\Http\Controllers\api\Api;
 use App\Http\Controllers\api\AuthenticateController;
 use App\Http\Controllers\api\CategoryController;
 use App\Http\Controllers\api\LocationController;
@@ -42,18 +45,18 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // old routes 
     Route::get('/all-locations', [Api::class, 'locations']);
-    Route::get('/all-categories', [Api::class, 'all_categories']);
-    Route::post('/location-price', [Api::class, 'location_price']);
-    Route::post('/place-order', [Api::class, 'place_order']);
-    Route::get('/driver-orders', [Api::class, 'driver_orders']);
+    // Route::get('/all-categories', [Api::class, 'all_categories']); //nathi 
+    Route::post('/location-price', [Api::class, 'location_price']); //nathi  puchvanu che 
+    // Route::post('/place-order', [Api::class, 'place_order']); //nathi 
+    Route::get('/driver-orders', [Api::class, 'driver_orders']); // change in image
     Route::post('/change-order-status', [Api::class, 'changeorderstatus']);
     Route::post('/pickup-image', [Api::class, 'pickup_image']);
     Route::post('/dropoff-image', [Api::class, 'dropoff_image']);
-    Route::get('/order-history', [Api::class, 'order_history']);
-    Route::post('/update-user-profile', [Api::class, 'update_user_profile']);
+    Route::get('/order-history', [OrderController::class, 'orderHistory']); 
+    Route::post('/update-user-profile', [Api::class, 'update_user_profile']); //
     Route::post('/daily-check', [Api::class, 'daily_check']);
-    Route::post('/order-status', [Api::class, 'order_status']);
-    Route::get('/view-profile', [Api::class, 'view_profile']);
+    Route::post('/order-status', [Api::class, 'order_status']); //nathi 
+    Route::get('/view-profile', [Api::class, 'view_profile']); 
     Route::post('/change-password', [Api::class, 'changePassword']);
 });
 Route::post('/send-otp', [Api::class, 'send_otp']);

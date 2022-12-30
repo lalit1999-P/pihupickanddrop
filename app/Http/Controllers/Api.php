@@ -281,7 +281,7 @@ class Api extends Controller
         $content = json_decode($request->getContent());
         $user = User::where('email', $content->email)->first();
         $otp = uniqid();
-        $user = User::where('email', $content->email)->update(['otp' => $otp]);
+        $user = $user->update(['otp' => $otp]);
 
         if ($user) {
             $mail_details =  'Your OTP is : ' . $otp;
