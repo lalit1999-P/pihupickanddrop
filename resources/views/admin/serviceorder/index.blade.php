@@ -100,7 +100,7 @@
                                                 @if ($value->invoice_date != null && $value->payble_amount != null)
                                                     <a href="{{ route('view-invoice-serviceorder', $value->id) }}"
                                                         class="btn btn-warning btn-sm"><i style="color: black"
-                                                            class="fas fa-eye"></i></a>
+                                                            class="fas fa-file-pdf"></i></a>
                                                 @endif
                                             </form>
                                         </td>
