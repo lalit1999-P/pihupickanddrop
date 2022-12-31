@@ -57,6 +57,5 @@ class Handler extends ExceptionHandler
             ], 200);
         }
 
-        // return redirect()->guest(route('login'));
     }
 }

@@ -9,8 +9,10 @@ use App\Models\VehicleModel;
 use App\Models\VehicleVariant;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\ExportOrder;
+use App\Models\Dropoffimage;
 use Exception;
 use App\Models\Location;
+use App\Models\Pickupimage;
 use Maatwebsite\Excel\Concerns\ToArray;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use PDF;
@@ -121,7 +123,7 @@ class ServiceOrderController extends Controller
      */
     public function edit($id)
     {
-
+        // dd($id);
         try {
             $Order = Order::where('id', $id)->firstOrFail();
             $currentUserType = auth()->user()->user_type;
@@ -135,11 +137,14 @@ class ServiceOrderController extends Controller
             }
             if ($isEdit) {
                 $vehicleModel = VehicleModel::latest()->get();
+                $pickUpImages = Pickupimage::where("order_id", $Order->id)->first();
+                // dd($pickUpImages->image1);
+                $dropOfImages = Dropoffimage::where("order_id", $Order->id)->first();
                 $vehicleVarient = VehicleVariant::where("vehicle_model", $Order->vehicle_model)->get();
                 // dd($vehicleVarient);
                 $DriverDeail = User::where("user_type", "2")->get();
                 $Location = Location::latest()->get();
-                return view('admin.serviceorder.add')->with('Order', $Order)->with("vehicleModel", $vehicleModel)->with('Location', $Location)->with("vehicleVarient", $vehicleVarient)->with("DriverDeail", $DriverDeail);
+                return view('admin.serviceorder.add')->with('Order', $Order)->with("dropOfImages", $dropOfImages)->with("pickUpImages", $pickUpImages)->with("vehicleModel", $vehicleModel)->with('Location', $Location)->with("vehicleVarient", $vehicleVarient)->with("DriverDeail", $DriverDeail);
             } else {
                 toastr()->error('You have no permission! Edit', 'No - Permission');
                 return to_route("serviceorder");

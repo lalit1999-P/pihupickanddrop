@@ -12,6 +12,7 @@ use App\Models\pickanddrop;
 use App\Models\Pickupimage;
 use App\Models\Dropoffimage;
 use App\Models\Order;
+use App\Models\OrderImage;
 use App\Models\Syclist;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
@@ -397,12 +398,6 @@ class Api extends Controller
 
     public function dropoff_image(Request $request)
     {
-        if (!auth()->user()) {
-            return response()->json([
-                'message' => 'Invalid Token',
-                'status' => 403
-            ], 200);
-        }
         $validator = Validator::make($request->all(), [
             'image1' => "required",
             'order_id' => "required",
@@ -418,63 +413,44 @@ class Api extends Controller
             return response($response, 200);
         }
         if ($request->hasFile('image1')) {
-            $image1 = $request->file('image1');
-            $file1 = $image1;
-            $extension1 = $file1->getClientOriginalExtension();
-            $filename1 = uniqid() . '.' . $extension1;
-            $file1->move('public/drop_image', $filename1);
+            $filename1 = fileUpload('order_img',  $request->file('image1'));
         } else {
             $filename1 = '';
         }
         if ($request->hasFile('image2')) {
-            $image2 = $request->file('image2');
-            $file2 = $image2;
-            $extension2 = $file2->getClientOriginalExtension();
-            $filename2 = uniqid() . '.' . $extension2;
-            $file2->move('public/drop_image', $filename2);
+            $filename2 = fileUpload('order_img',  $request->file('image2'));
         } else {
             $filename2 = '';
         }
         if ($request->hasFile('image3')) {
-            $image3 = $request->file('image3');
-            $file3 = $image3;
-            $extension3 = $file3->getClientOriginalExtension();
-            $filename3 = uniqid() . '.' . $extension3;
-            $file3->move('public/drop_image', $filename3);
+            $filename3 = fileUpload('order_img',  $request->file('image3'));
         } else {
             $filename3 = '';
         }
         if ($request->hasFile('image4')) {
-            $image4 = $request->file('image4');
-            $file4 = $image4;
-            $extension4 = $file4->getClientOriginalExtension();
-            $filename4 = uniqid() . '.' . $extension4;
-            $file4->move('public/drop_image', $filename4);
+            $filename4 = fileUpload('order_img',  $request->file('image4'));
         } else {
             $filename4 = '';
         }
         if ($request->hasFile('image5')) {
-            $image5 = $request->file('image5');
-            $file5 = $image5;
-            $extension5 = $file5->getClientOriginalExtension();
-            $filename5 = uniqid() . '.' . $extension5;
-            $file5->move('public/drop_image', $filename5);
+            $filename5 = fileUpload('order_img',  $request->file('image5'));
         } else {
             $filename5 = '';
         }
-        $usersave = new Dropoffimage;
-        $usersave->image1 = $filename1;
-        $usersave->image2 = $filename2;
-        $usersave->image3 = $filename3;
-        $usersave->image4 = $filename4;
-        $usersave->image5 = $filename5;
-        $usersave->order_id = $request->order_id;
-        $usersave->driver_id = auth()->user()->id;
-        $usersave->save();
+
+        Dropoffimage::updateOrCreate(
+            ["order_id" => $request->order_id, "driver_id" => auth()->user()->id],
+            [
+                "image1" => $filename1,
+                "image2" => $filename2,
+                "image3" => $filename3,
+                "image4" => $filename4,
+                "image5" => $filename5,
+            ]
+        );
         $message = "Saved Successfully.";
         $response = [
             'message' => $message,
-
             'status' => 200
         ];
         return response($response, 200);
@@ -482,17 +458,9 @@ class Api extends Controller
 
     public function pickup_image(Request $request)
     {
-        if (!auth()->user()) {
-            return response()->json([
-                'message' => 'Invalid Token',
-                'status' => 403
-            ], 200);
-        }
         $validator = Validator::make($request->all(), [
             'image1' => "required",
             'order_id' => "required",
-
-
         ]);
 
         if ($validator->fails()) {
@@ -504,59 +472,42 @@ class Api extends Controller
             return response($response, 200);
         }
         if ($request->hasFile('image1')) {
-            $image1 = $request->file('image1');
-            $file1 = $image1;
-            $extension1 = $file1->getClientOriginalExtension();
-            $filename1 = uniqid() . '.' . $extension1;
-            $file1->move('public/drop_image', $filename1);
+            $filename1 = fileUpload('order_img',  $request->file('image1'));
         } else {
             $filename1 = '';
         }
         if ($request->hasFile('image2')) {
-            $image2 = $request->file('image2');
-            $file2 = $image2;
-            $extension2 = $file2->getClientOriginalExtension();
-            $filename2 = uniqid() . '.' . $extension2;
-            $file2->move('public/drop_image', $filename2);
+            $filename2 = fileUpload('order_img',  $request->file('image2'));
         } else {
             $filename2 = '';
         }
         if ($request->hasFile('image3')) {
-            $image3 = $request->file('image3');
-            $file3 = $image3;
-            $extension3 = $file3->getClientOriginalExtension();
-            $filename3 = uniqid() . '.' . $extension3;
-            $file3->move('public/drop_image', $filename3);
+            $filename3 = fileUpload('order_img',  $request->file('image3'));
         } else {
             $filename3 = '';
         }
         if ($request->hasFile('image4')) {
-            $image4 = $request->file('image4');
-            $file4 = $image4;
-            $extension4 = $file4->getClientOriginalExtension();
-            $filename4 = uniqid() . '.' . $extension4;
-            $file4->move('public/drop_image', $filename4);
+            $filename4 = fileUpload('order_img',  $request->file('image4'));
         } else {
             $filename4 = '';
         }
         if ($request->hasFile('image5')) {
-            $image5 = $request->file('image5');
-            $file5 = $image5;
-            $extension5 = $file5->getClientOriginalExtension();
-            $filename5 = uniqid() . '.' . $extension5;
-            $file5->move('public/drop_image', $filename5);
+            $filename5 = fileUpload('order_img',  $request->file('image5'));
         } else {
             $filename5 = '';
         }
-        $usersave = new Pickupimage;
-        $usersave->image1 = $filename1;
-        $usersave->image2 = $filename2;
-        $usersave->image3 = $filename3;
-        $usersave->image4 = $filename4;
-        $usersave->image5 = $filename5;
-        $usersave->order_id = $request->order_id;
-        $usersave->driver_id = auth()->user()->id;
-        $usersave->save();
+
+        Pickupimage::updateOrCreate(
+            ["order_id" => $request->order_id, "driver_id" => auth()->user()->id],
+            [
+                "image1" => $filename1,
+                "image2" => $filename2,
+                "image3" => $filename3,
+                "image4" => $filename4,
+                "image5" => $filename5,
+            ]
+        );
+
         $message = "Saved Successfully.";
         $response = [
             'message' => $message,

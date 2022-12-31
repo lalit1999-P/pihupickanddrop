@@ -477,6 +477,79 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <label>Pick Up Images</label>
+                                        <br>
+                                        @if (isset($pickUpImages))
+                                            @if ($pickUpImages->image1)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $pickUpImages->image1) }} "
+                                                    alt="">
+                                            @endif
+
+                                            @if ($pickUpImages->image2)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $pickUpImages->image2) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($pickUpImages->image3)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $pickUpImages->image3) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($pickUpImages->image4)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $pickUpImages->image4) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($pickUpImages->image5)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $pickUpImages->image5) }} "
+                                                    alt="">
+                                            @endif
+                                        @else
+                                            <label for="">No Images</label>
+                                        @endif
+                                    </div>
+                                    <hr>
+                                    <div class="col-md-12">
+                                        <label>Drop Off Image</label>
+
+                                        <br>
+                                        @if (isset($dropOfImages))
+                                            @if ($dropOfImages->image1)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $dropOfImages->image1) }} "
+                                                    alt="">
+                                            @endif
+
+                                            @if ($dropOfImages->image2)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $dropOfImages->image2) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($dropOfImages->image3)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $dropOfImages->image3) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($dropOfImages->image4)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $dropOfImages->image4) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($dropOfImages->image5)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $dropOfImages->image5) }} "
+                                                    alt="">
+                                            @endif
+                                        @else
+                                            <label for="">No Images</label>
+                                        @endif
+                                    </div>
+                                    <hr>
+                                </div>
                                 <div class="form-group">
                                     <input class="btn btn-primary float-left" type="submit"
                                         value="{{ isset($Order->id) ? ' Update' : 'Add' }}">
