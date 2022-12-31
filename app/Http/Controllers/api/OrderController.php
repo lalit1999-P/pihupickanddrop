@@ -102,11 +102,25 @@ class OrderController extends Controller
     }
     public function orderHistory(Request $request)
     {
+        // dd($request->all());
+        $validator = Validator::make($request->all(), [
+            'assign_status' => "required",
+        ]);
+
+        if ($validator->fails()) {
+            $response = [
+                'message' => $validator->errors()->first(),
+                'status' => 403
+            ];
+            return response($response, 200);
+        }
+
         try {
-            $OrderHistory = $this->orderRepository->getOrderHistory();
+            $OrderHistory = $this->orderRepository->getOrderHistory($request->assign_status);
+            // dd($OrderHistory);
             $this->status = Response::HTTP_OK;
             $this->response["data"] =  $OrderHistory;
-            $this->response["message"] = "succesfully Get Order History ";
+            $this->response["message"] = "Succesfully Get Order History ";
         } catch (Exception $th) {
             $this->response["message"] = $th->getMessage();
         }

@@ -52,7 +52,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/change-order-status', [Api::class, 'changeorderstatus']);
     Route::post('/pickup-image', [Api::class, 'pickup_image']);
     Route::post('/dropoff-image', [Api::class, 'dropoff_image']);
-    Route::get('/order-history', [OrderController::class, 'orderHistory']); 
+    Route::post('/order-history', [OrderController::class, 'orderHistory']); 
     Route::post('/update-user-profile', [Api::class, 'update_user_profile']); //
     Route::post('/daily-check', [Api::class, 'daily_check']);
     Route::post('/order-status', [Api::class, 'order_status']); //nathi 

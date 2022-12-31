@@ -15,7 +15,7 @@ class Order extends Model
         'id', 'user_id', 'pick_up_date', 'pick_up_time', 'drop_off_date', 'drop_off_time', 'driver_id', 'location_id', 'price',
         'payble_amount', 'category_id', 'reg_number', 'mobile_no', 'vehicle_model', 'vehicle_variant', 'full_name',
         'sur_name', 'email_id', 'address', 'pickup_address', 'drop_address', 'street_name', 'houser_no', 'landmark', 'service_date',
-        'service_detail', 'service_type', 'payment_method', 'invoice_date', 'created_at', 'updated_at'
+        'service_detail', 'service_type', 'payment_method', 'invoice_date', 'assign_status','created_at', 'updated_at',
     ];
 
     public function Users()

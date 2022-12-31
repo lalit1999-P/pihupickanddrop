@@ -74,9 +74,9 @@ class OrderRepository
             return false;
         }
     }
-    public function getOrderHistory()
+    public function getOrderHistory($assign_status='1')
     {
-        return Order::where('driver_id', auth()->user()->id)->with('DriverUsers', 'Varient', 'vehicleModel', 'location')->get();
+        return Order::where('driver_id', auth()->user()->id)->where('assign_status',$assign_status)->with('DriverUsers', 'Varient', 'vehicleModel', 'location')->get();
     }
     public function getNewOrder()
     {

@@ -11,6 +11,7 @@ use App\Models\pickndrop;
 use App\Models\pickanddrop;
 use App\Models\Pickupimage;
 use App\Models\Dropoffimage;
+use App\Models\Order;
 use App\Models\Syclist;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Auth;
@@ -572,32 +573,41 @@ class Api extends Controller
     }
     public function changeorderstatus(Request $request)
     {
-        if (!auth()->user()) {
-            return response()->json([
-                'message' => 'Invalid Token',
-                'status' => 403
-            ], 200);
-        }
-        $validator = Validator::make($request->json()->all(), [
+        // dd("hii");
+        $validator = Validator::make($request->all(), [
             'order_id' => "required",
-            'assign_status' => 'required',
-
+            'assign_status' => 'required|in:accept,reject',
         ]);
 
         if ($validator->fails()) {
             $response = [
                 'message' => $validator->errors()->first(),
                 'status' => 403
-
             ];
             return response($response, 200);
         }
-        $content = json_decode($request->getContent());
-        pickanddrop::where('id', $content->order_id)->update(['assign_status' => $content->assign_status]);
-        $message = "Updated Successfully.";
+
+        //condition for check  accepted and rejected .
+        $message = "";
+        $orderData = Order::where('id', $request->order_id)->first();
+        // dd($orderData);
+        if ($orderData) {
+            // dd($orderData);
+            if ($request->assign_status ==  'accept') {
+                $orderData->update(['assign_status' => 2]);
+                $message = "Order status accepted successfully.";
+            } else {
+                //this called when reject
+                $orderData->update(['assign_status' => 1, "driver_id" => null]);
+                $message = "Order Status rejected";
+            }
+        } else {
+            $message = "There is no any orders.";
+        }
+
+
         $response = [
             'message' => $message,
-
             'status' => 200
         ];
         return response($response, 200);

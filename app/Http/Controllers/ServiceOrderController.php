@@ -97,6 +97,13 @@ class ServiceOrderController extends Controller
             $data["user_id"] =  auth()->user()->id;
         }
 
+        //assing status add 
+        //if insert records then assign_status = "1" pending 
+
+        if (!isset($request->id)) {
+            $data['assign_status'] = "1";
+        }
+
         Order::updateOrCreate(['id' => $request->id], $data);
         if ($request->id) {
             toastr()->success('Successfully Update Service Order!', 'Update Service Order');
