@@ -22,9 +22,10 @@ use App\Models\VehicleVariant;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+// dd("hi");
 // Route::get('/', function () {
-//     return view('admin.dashbord');
+//     // dd("dddd");
+//     return view('auth.login');
 // })->name('/');
 Route::get('login', [AuthController::class, 'index'])->name('login');
 Route::post('login-check', [AuthController::class, 'login'])->name('login-check');
