@@ -169,35 +169,28 @@ class Api extends Controller
 
     public function update_user_profile(Request $request)
     {
-        if (!auth()->user()) {
-            return response()->json([
-                'message' => 'Invalid Token',
-                'status' => 403
-            ], 200);
-        }
         $validator = Validator::make($request->json()->all(), [
             'email' => [
                 'string',
                 'email',
                 'max:255',
-                // 'unique:users',
-                'regex:/^\w+[-\.\w]*@(?!(?:outlook|myemail|yahoo)\.com$)\w+[-\.\w]*?\.\w{2,4}$/'
+                // 'regex:/^\w+[-\.\w]*@(?!(?:outlook|myemail|yahoo)\.com$)\w+[-\.\w]*?\.\w{2,4}$/'
             ],
-            'contact' => 'regex:/[0-9]{10}/|digits:10',
+            'contact' =>  ['required', 'digits:10'],
 
         ]);
+
 
         if ($validator->fails()) {
             $response = [
                 'message' => $validator->errors()->first(),
                 'status' => 403
-
             ];
             return response($response, 200);
         }
-        $content = json_decode($request->getContent());
-        $usersave = user::find(auth()->user()->id);
 
+        $content = json_decode($request->getContent());
+        $usersave = User::find(auth()->user()->id);
         $usersave->name = $content->name;
         $usersave->email = $content->email;
         $usersave->contact = $content->contact;
