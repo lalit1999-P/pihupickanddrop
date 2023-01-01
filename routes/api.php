@@ -58,6 +58,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/order-status', [Api::class, 'order_status']); //nathi 
     Route::get('/view-profile', [Api::class, 'view_profile']); 
     Route::post('/change-password', [Api::class, 'changePassword']);
+    Route::post('/order-detail', [OrderController::class, 'orderDetail']);
+
 });
 Route::post('/send-otp', [Api::class, 'send_otp']);
 Route::post('/verify-otp', [Api::class, 'verify_mail_otp']);

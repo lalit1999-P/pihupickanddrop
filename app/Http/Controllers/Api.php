@@ -438,6 +438,8 @@ class Api extends Controller
             $filename5 = '';
         }
 
+        Order::where('id', $request->order_id)->update(["assign_status" => "3"]);
+
         Dropoffimage::updateOrCreate(
             ["order_id" => $request->order_id, "driver_id" => auth()->user()->id],
             [

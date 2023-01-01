@@ -184,4 +184,32 @@ class OrderController extends Controller
         ];
         return response($response, 200);
     }
+
+    public function orderDetail(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'order_id' => "required",
+        ]);
+
+        if ($validator->fails()) {
+            $response = [
+                'message' => $validator->errors()->first(),
+                'status' => 403
+            ];
+            return response($response, 200);
+        }
+
+
+        try {
+            $order_detail = $this->orderRepository->getOrderDetail($request->order_id);
+            $this->status = Response::HTTP_OK;
+            $this->response["data"] =  $order_detail;
+            $this->response["message"] = "order details fetched successfully.";
+        } catch (Exception $e) {
+            $this->status = Response::HTTP_OK;
+            $this->response["message"] = $e->getMessage();
+        }
+
+        return $this->returnResponse();
+    }
 }
