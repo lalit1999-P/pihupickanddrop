@@ -102,6 +102,12 @@ class OrderController extends Controller
     }
     public function orderHistory(Request $request)
     {
+        if (!auth()->user()) {
+            return response()->json([
+                'message' => 'Invalid Token',
+                'status' => 403
+            ], 200);
+        }
         // dd($request->all());
         $validator = Validator::make($request->all(), [
             'assign_status' => "required",
