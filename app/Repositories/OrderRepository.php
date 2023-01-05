@@ -74,9 +74,10 @@ class OrderRepository
             return false;
         }
     }
-    public function getOrderHistory($assign_status='1')
+    public function getOrderHistory($assign_status)
     {
-        return Order::where('driver_id', auth()->user()->id)->where('assign_status',$assign_status)->with('DriverUsers', 'Varient', 'vehicleModel', 'location')->get();
+        // dd($assign_status);
+        return Order::where('driver_id', auth()->user()->id)->where('assign_status', $assign_status)->with('DriverUsers', 'Varient', 'vehicleModel', 'location')->get();
     }
     public function getNewOrder()
     {
@@ -87,5 +88,4 @@ class OrderRepository
     {
         return Order::where('driver_id', auth()->user()->id)->where("id", $order_id)->with('DriverUsers', 'Varient', 'vehicleModel', 'location')->first();
     }
-   
 }
