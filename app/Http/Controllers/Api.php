@@ -209,6 +209,12 @@ class Api extends Controller
 
     public function order_payment_status(Request $request)
     {
+        if (!auth()->user()) {
+            return response()->json([
+                'message' => 'Invalid Token',
+                'status' => 403
+            ], 200);
+        }
         $validator = Validator::make($request->all(), [
             'payment_method' => "required",
             'payble_amount' => "required",
