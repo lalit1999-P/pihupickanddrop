@@ -207,7 +207,34 @@ class Api extends Controller
         return response($response, 200);
     }
 
+    public function order_payment_status(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'payment_method' => "required",
+            'payble_amount' => "required",
+            'order_id' => "required"
 
+        ]);
+
+        if ($validator->fails()) {
+            $response = [
+                'message' => $validator->errors()->first(),
+                'status' => 403
+
+            ];
+            return response($response, 200);
+        }
+
+        $Order = Order::find($request->order_id);
+        $Order->payment_method = $request->payment_method;
+        $Order->payble_amount = $request->payble_amount;
+        $Order->save();
+        $response = [
+            'message' => "Order Payment Status Changed successfully",
+            'status' => 200
+        ];
+        return response($response, 200);
+    }
     public function view_profile(Request $request)
     {
         if (!auth()->user()) {

@@ -52,14 +52,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/change-order-status', [Api::class, 'changeorderstatus']);
     Route::post('/pickup-image', [Api::class, 'pickup_image']);
     Route::post('/dropoff-image', [Api::class, 'dropoff_image']);
-    Route::post('/order-history', [OrderController::class, 'orderHistory']); 
+    Route::post('/order-history', [OrderController::class, 'orderHistory']);
     Route::post('/update-user-profile', [Api::class, 'update_user_profile']); //
     Route::post('/daily-check', [Api::class, 'daily_check']);
-    Route::post('/order-status', [Api::class, 'order_status']); //nathi 
-    Route::get('/view-profile', [Api::class, 'view_profile']); 
+    Route::post('/order-payment-status', [Api::class, 'order_payment_status']); //nathi 
+    Route::get('/view-profile', [Api::class, 'view_profile']);
     Route::post('/change-password', [Api::class, 'changePassword']);
     Route::post('/order-detail', [OrderController::class, 'orderDetail']);
-
 });
 Route::post('/send-otp', [Api::class, 'send_otp']);
 Route::post('/verify-otp', [Api::class, 'verify_mail_otp']);
