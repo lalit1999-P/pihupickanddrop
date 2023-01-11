@@ -234,6 +234,7 @@ class Api extends Controller
         $Order = Order::find($request->order_id);
         $Order->payment_method = $request->payment_method;
         $Order->payble_amount = $request->payble_amount;
+        $Order->action_status = 2;
         $Order->save();
         $response = [
             'message' => "Order Payment Status Changed successfully",
@@ -471,7 +472,7 @@ class Api extends Controller
             $filename5 = '';
         }
 
-        Order::where('id', $request->order_id)->update(["assign_status" => "3"]);
+        Order::where('id', $request->order_id)->update(["assign_status" => "3","action_status" => 3]);
 
         Dropoffimage::updateOrCreate(
             ["order_id" => $request->order_id, "driver_id" => auth()->user()->id],
@@ -542,7 +543,8 @@ class Api extends Controller
                 "image5" => $filename5,
             ]
         );
-
+        
+        Order::where('id', $request->order_id)->update(["action_status" => 1]);
         $message = "Saved Successfully.";
         $response = [
             'message' => $message,
