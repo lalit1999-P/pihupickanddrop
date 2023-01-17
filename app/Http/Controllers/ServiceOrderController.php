@@ -77,15 +77,15 @@ class ServiceOrderController extends Controller
                 'full_name'     => 'required|regex:/^[a-zA-Z\s]+$/',
                 // 'last_name'     => 'required|max:50|regex:/^[a-zA-Z\s]+$/',
                 'email_id'     => 'required|email|email:rfc,dns',
-                'pickup_address'     => 'required|max:250',
-                'drop_address'     => 'required|max:250',
+               // 'pickup_address'     => 'required|max:250',
+                //'drop_address'     => 'required|max:250',
                 'location_id'     => 'required',
-                'payment_method' => 'required',
+                //'payment_method' => 'required',
                 'invoice_date'     => 'nullable|date',
                 'service_detail'     => 'nullable|max:150',
                 'price'     => 'nullable|regex:/^[0-9.]+$/',
-                'pick_up_time'     => 'required',
-                'service_type' => 'required'
+                //'pick_up_time'     => 'required',
+               // 'service_type' => 'required'
             ],
             [
                 'price.required' => 'The Invoice Amount field is required.'

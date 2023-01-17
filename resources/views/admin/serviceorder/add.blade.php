@@ -272,10 +272,10 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Service Type {!! fieldRequired() !!}</label>
-                                            <select class="form-control select2" name="service_type"
+                                            <label>Service Type </label>
+                                            <select class="form-control" name="service_type"
                                                 style="width: 100%;">
-                                                <option value="service_type">Select Vehicle Model</option>
+                                                <option value=" ">Select Vehicle Model</option>
                                                 @if (old('service_type'))
                                                     <option value="1"
                                                         {{ old('service_type') == '1' ? 'selected' : '' }}>
@@ -306,7 +306,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Payment Method {!! fieldRequired() !!}</label>
+                                            <label>Payment Method </label>
                                             <select class="form-control select2" name="payment_method"
                                                 style="width: 100%;">
                                                 <option value=" ">Select Payment Method</option>
@@ -361,7 +361,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Pick Up Date {!! fieldRequired() !!}</label>
+                                            <label>Pick Up Date </label>
                                             <input type="date" id="pick_up_date" name="pick_up_date"
                                                 class="form-control"
                                                 value="{{ isset($Order) ? $Order->pick_up_date : old('pick_up_date') }}">
@@ -372,7 +372,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Pick Up Time {!! fieldRequired() !!}</label>
+                                            <label>Pick Up Time </label>
                                             <select class="form-control select2" name="pick_up_time" id="pick_up_time"
                                                 style="width: 100%;">
                                                 <option value=" ">Select Pick Up Time</option>
@@ -442,7 +442,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Pickup Location Address {!! fieldRequired() !!}</label>
+                                            <label>Pickup Location Address </label>
                                             <textarea style="margin-top:16px " type="text" id="pickup_address" name="pickup_address" class="form-control"> {{ isset($Order) ? $Order->pickup_address : '' }}</textarea>
                                             @if ($errors->has('pickup_address'))
                                                 <span class="alert-danger">{{ $errors->first('pickup_address') }}</span>
@@ -453,7 +453,7 @@
                                         <div class="form-group">
                                             <input type="checkbox" id="same_location" class="same_location"
                                                 name="same_location" value="1">
-                                            <label> Same As Drop off Address {!! fieldRequired() !!}</label>
+                                            <label> Same As Drop off Address </label>
                                         </div>
                                         <div class="form-group">
                                             <textarea type="text" id="drop_address" name="drop_address" class="form-control"> {{ isset($Order) ? $Order->drop_address : '' }}</textarea>

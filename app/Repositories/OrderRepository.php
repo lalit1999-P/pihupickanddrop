@@ -77,15 +77,15 @@ class OrderRepository
     public function getOrderHistory($assign_status)
     {
         // dd($assign_status);
-        return Order::where('driver_id', auth()->user()->id)->where('assign_status', $assign_status)->with('DriverUsers', 'Varient', 'vehicleModel', 'location')->get();
+        return Order::where('driver_id', auth()->user()->id)->where('assign_status', $assign_status)->with('DriverUsers', 'Varient', 'vehicleModel', 'location', 'pickupImage', 'dropOffImage')->get();
     }
     public function getNewOrder()
     {
-        return Order::where('driver_id', auth()->user()->id)->where('status', 0)->with('DriverUsers', 'Varient', 'vehicleModel', 'location')->get();
+        return Order::where('driver_id', auth()->user()->id)->where('status', 0)->with('DriverUsers', 'Varient', 'vehicleModel', 'location', 'pickupImage', 'dropOffImage')->get();
     }
 
     public function getOrderDetail($order_id)
     {
-        return Order::where('driver_id', auth()->user()->id)->where("id", $order_id)->with('DriverUsers', 'Varient', 'vehicleModel', 'location')->first();
+        return Order::where('driver_id', auth()->user()->id)->where("id", $order_id)->with('DriverUsers', 'Varient', 'vehicleModel', 'location', 'pickupImage', 'dropOffImage')->first();
     }
 }

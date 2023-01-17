@@ -98,27 +98,27 @@ class Api extends Controller
                 if (isset($Dropoffimage)) {
                     if (isset($Dropoffimage->image1)) {
 
-                        $ord->Dropoffimage1 = 'https://pihu.alpinetechnologies.eu/public/drop_image/' . $Dropoffimage->image1;
+                        $ord->Dropoffimage1 = 'https://pihupickanddrop.com/public/order_img/' . $Dropoffimage->image1;
                     } else {
                         $ord->Dropoffimage1 = NULL;
                     }
                     if (isset($Dropoffimage->image2)) {
-                        $ord->Dropoffimage2 = 'https://pihu.alpinetechnologies.eu/public/drop_image/' . $Dropoffimage->image2;
+                        $ord->Dropoffimage2 = 'https://pihupickanddrop.com/public/order_img/' . $Dropoffimage->image2;
                     } else {
                         $ord->Dropoffimage2 = NULL;
                     }
                     if (isset($Dropoffimage->image3)) {
-                        $ord->Dropoffimage3 = 'https://pihu.alpinetechnologies.eu/public/drop_image/' . $Dropoffimage->image3;
+                        $ord->Dropoffimage3 = 'https://pihupickanddrop.com/public/order_img/' . $Dropoffimage->image3;
                     } else {
                         $ord->Dropoffimage3 = NULL;
                     }
                     if (isset($Dropoffimage->image4)) {
-                        $ord->Dropoffimage4 = 'https://pihu.alpinetechnologies.eu/public/drop_image/' . $Dropoffimage->image4;
+                        $ord->Dropoffimage4 = 'https://pihupickanddrop.com/public/order_img/' . $Dropoffimage->image4;
                     } else {
                         $ord->Dropoffimage4 = NULL;
                     }
                     if (isset($Dropoffimage->image5)) {
-                        $ord->Dropoffimage5 = 'https://pihu.alpinetechnologies.eu/public/drop_image/' . $Dropoffimage->image5;
+                        $ord->Dropoffimage5 = 'https://pihupickanddrop.com/public/order_img/' . $Dropoffimage->image5;
                     } else {
                         $ord->Dropoffimage5 = NULL;
                     }
@@ -126,27 +126,27 @@ class Api extends Controller
                 $Pickupimage = Pickupimage::where('driver_id', auth()->user()->id)->where('order_id', $ord->id)->first();
                 if (isset($Pickupimage)) {
                     if (isset($Pickupimage->image1)) {
-                        $ord->Pickupimage1 = 'https://pihu.alpinetechnologies.eu/public/drop_image/' . $Pickupimage->image1;
+                        $ord->Pickupimage1 = 'https://pihupickanddrop.com/public/order_img/' . $Pickupimage->image1;
                     } else {
                         $ord->Pickupimage1 = NULL;
                     }
                     if (isset($Pickupimage->image2)) {
-                        $ord->Pickupimage2 = 'https://pihu.alpinetechnologies.eu/public/drop_image/' . $Pickupimage->image2;
+                        $ord->Pickupimage2 = 'https://pihupickanddrop.com/public/order_img/' . $Pickupimage->image2;
                     } else {
                         $ord->Pickupimage2 = NULL;
                     }
                     if (isset($Pickupimage->image3)) {
-                        $ord->Pickupimage3 = 'https://pihu.alpinetechnologies.eu/public/drop_image/' . $Pickupimage->image3;
+                        $ord->Pickupimage3 = 'https://pihupickanddrop.com/public/order_img/' . $Pickupimage->image3;
                     } else {
                         $ord->Pickupimage3 = NULL;
                     }
                     if (isset($Pickupimage->image4)) {
-                        $ord->Pickupimage4 = 'https://pihu.alpinetechnologies.eu/public/drop_image/' . $Pickupimage->image4;
+                        $ord->Pickupimage4 = 'https://pihupickanddrop.com/public/order_img/' . $Pickupimage->image4;
                     } else {
                         $ord->Pickupimage4 = NULL;
                     }
                     if (isset($Pickupimage->image5)) {
-                        $ord->Pickupimage5 = 'https://pihu.alpinetechnologies.eu/public/drop_image/' . $Pickupimage->image5;
+                        $ord->Pickupimage5 = 'https://pihupickanddrop.com/public/order_img/' . $Pickupimage->image5;
                     } else {
                         $ord->Pickupimage5 = NULL;
                     }
@@ -234,6 +234,7 @@ class Api extends Controller
         $Order = Order::find($request->order_id);
         $Order->payment_method = $request->payment_method;
         $Order->payble_amount = $request->payble_amount;
+        $Order->invoice_date = date("Y-m-d");
         $Order->action_status = 2;
         $Order->save();
         $response = [
@@ -472,7 +473,7 @@ class Api extends Controller
             $filename5 = '';
         }
 
-        Order::where('id', $request->order_id)->update(["assign_status" => "3","action_status" => 3]);
+        Order::where('id', $request->order_id)->update(["assign_status" => "3", "action_status" => 3]);
 
         Dropoffimage::updateOrCreate(
             ["order_id" => $request->order_id, "driver_id" => auth()->user()->id],
@@ -543,7 +544,7 @@ class Api extends Controller
                 "image5" => $filename5,
             ]
         );
-        
+
         Order::where('id', $request->order_id)->update(["action_status" => 1]);
         $message = "Saved Successfully.";
         $response = [
