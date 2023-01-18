@@ -60,7 +60,7 @@
                     <!-- ============================================================== -->
                     <!-- Logo -->
                     <!-- ============================================================== -->
-                    <a class="navbar-brand custom-navbar-brand" href="{{route('/')}}">
+                    <a class="navbar-brand custom-navbar-brand" href="{{ route('/') }}">
                         <!-- Logo icon -->
                         <b class="logo-icon">
                             <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -123,12 +123,17 @@
                             <a class="nav-link dropdown-toggle waves-effect waves-dark" href="#"
                                 id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <?php
-                                if (file_exists('images/employee_image/' . auth()->user()->image)) {
-                                    $imagepath = asset('images/employee_image/' . auth()->user()->image);
+                                if (auth()->user()->image) {
+                                    if (file_exists('images/employee_image/' . auth()->user()->image)) {
+                                        $imagepath = asset('images/employee_image/' . auth()->user()->image);
+                                    } else {
+                                        $imagepath = asset('images/no-image-icon-6.png');
+                                    }
                                 } else {
                                     $imagepath = asset('images/no-image-icon-6.png');
                                 }
                                 ?>
+
                                 <img src="{{ $imagepath }}" alt="user"
                                     class="profile-pic me-2">{{ auth()->user()->name }}
                             </a>
