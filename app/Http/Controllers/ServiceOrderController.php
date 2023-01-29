@@ -103,7 +103,7 @@ class ServiceOrderController extends Controller
         //if insert records then assign_status = "1" pending 
 
         if (!isset($request->id)) {
-            $data['assign_status'] = "1";
+            $data['assign_status'] = 0;
         }
 
         Order::updateOrCreate(['id' => $request->id], $data);
