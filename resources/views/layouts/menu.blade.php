@@ -11,6 +11,13 @@
                             aria-hidden="true"></i><span class="hide-menu">Dashboard</span></a></li>
                 @if (auth()->user()->user_type == 1)
                     <li class="sidebar-item"> <a
+                            class="sidebar-link waves-effect waves-dark sidebar-link {{ Route::currentRouteName() == 'admin' || Route::currentRouteName() == 'create-admin' || Route::currentRouteName() == 'edit-admin' ? 'active' : '' }}"
+                            href="{{ route('admin') }}" aria-expanded="false">
+                            <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Users Management</span></a>
+                    </li>
+                @endif
+                @if (auth()->user()->user_type == 2 or auth()->user()->user_type == 1)
+                    <li class="sidebar-item"> <a
                             class="sidebar-link waves-effect waves-dark sidebar-link {{ Route::currentRouteName() == 'user' || Route::currentRouteName() == 'create-users' || Route::currentRouteName() == 'edit-users' ? 'active' : '' }}"
                             href="{{ route('user') }}" aria-expanded="false">
                             <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Driver
@@ -29,11 +36,12 @@
                             href="{{ route('vehicle-variant') }}" aria-expanded="false"><i class="me-3 fa fa-car"
                                 aria-hidden="true"></i><span class="hide-menu">Vehicle Variant</span></a></li>
                 @endif
-                <li class="sidebar-item"> <a
-                        class="sidebar-link waves-effect waves-dark sidebar-link {{ Route::currentRouteName() == 'serviceorder' || Route::currentRouteName() == 'create-serviceorder' || Route::currentRouteName() == 'edit-serviceorder' || Route::currentRouteName() == 'view-invoice-serviceorder' ? 'active' : '' }}"
-                        href="{{ route('serviceorder') }}" aria-expanded="false"><i class="me-3 fa fa-globe"
-                            aria-hidden="true"></i><span class="hide-menu">Service Order</span></a></li>
-
+                @if (auth()->user()->user_type == 2 or auth()->user()->user_type == 3 or auth()->user()->user_type == 1)
+                    <li class="sidebar-item"> <a
+                            class="sidebar-link waves-effect waves-dark sidebar-link {{ Route::currentRouteName() == 'serviceorder' || Route::currentRouteName() == 'create-serviceorder' || Route::currentRouteName() == 'edit-serviceorder' || Route::currentRouteName() == 'view-invoice-serviceorder' ? 'active' : '' }}"
+                            href="{{ route('serviceorder') }}" aria-expanded="false"><i class="me-3 fa fa-globe"
+                                aria-hidden="true"></i><span class="hide-menu">Service Order</span></a></li>
+                @endif
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

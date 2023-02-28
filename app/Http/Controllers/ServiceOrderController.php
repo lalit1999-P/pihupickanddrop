@@ -30,14 +30,12 @@ class ServiceOrderController extends Controller
         $userType = auth()->user()->user_type;
         // if user is admin
         if ($userType == 1) {
-
             $data = Order::with(['Users', 'Category', 'DriverUsers', 'vehicleModel', 'Varient'])->latest()->get();
-        }
-
-        // if user is user
-        if ($userType == 3) {
+        } elseif ($userType == 2) {
+        } else {
             $data = Order::where("user_id", auth()->user()->id)->with(['Users', 'Category', 'DriverUsers'])->latest()->get();
         }
+
         return view('admin.serviceorder.index')->with('Order', $data);
     }
 
@@ -53,7 +51,7 @@ class ServiceOrderController extends Controller
     public function create()
     {
         //user_type 2 means driver
-        $DriverDeail =  User::where("user_type", "2")->get();
+        $DriverDeail =  User::where("user_type", 2)->get();
         $vehicleModel = VehicleModel::latest()->get();
         $Location = Location::latest()->get();
         return view('admin.serviceorder.add', ["vehicleModel" => $vehicleModel, "DriverDeail" => $DriverDeail, "Location" => $Location]);
@@ -77,7 +75,7 @@ class ServiceOrderController extends Controller
                 'full_name'     => 'required|regex:/^[a-zA-Z\s]+$/',
                 // 'last_name'     => 'required|max:50|regex:/^[a-zA-Z\s]+$/',
                 'email_id'     => 'required|email|email:rfc,dns',
-               // 'pickup_address'     => 'required|max:250',
+                // 'pickup_address'     => 'required|max:250',
                 //'drop_address'     => 'required|max:250',
                 'location_id'     => 'required',
                 //'payment_method' => 'required',
@@ -85,7 +83,7 @@ class ServiceOrderController extends Controller
                 'service_detail'     => 'nullable|max:150',
                 'price'     => 'nullable|regex:/^[0-9.]+$/',
                 //'pick_up_time'     => 'required',
-               // 'service_type' => 'required'
+                // 'service_type' => 'required'
             ],
             [
                 'price.required' => 'The Invoice Amount field is required.'
@@ -142,7 +140,7 @@ class ServiceOrderController extends Controller
                 $dropOfImages = Dropoffimage::where("order_id", $Order->id)->first();
                 $vehicleVarient = VehicleVariant::where("vehicle_model", $Order->vehicle_model)->get();
                 // dd($vehicleVarient);
-                $DriverDeail = User::where("user_type", "2")->get();
+                $DriverDeail = User::where("user_type", 4)->get();
                 $Location = Location::latest()->get();
                 return view('admin.serviceorder.add')->with('Order', $Order)->with("dropOfImages", $dropOfImages)->with("pickUpImages", $pickUpImages)->with("vehicleModel", $vehicleModel)->with('Location', $Location)->with("vehicleVarient", $vehicleVarient)->with("DriverDeail", $DriverDeail);
             } else {

@@ -122,6 +122,31 @@ class Api extends Controller
                     } else {
                         $ord->Dropoffimage5 = NULL;
                     }
+                    if (isset($Dropoffimage->image6)) {
+                        $ord->Dropoffimage6 = 'https://pihupickanddrop.com/public/order_img/' . $Dropoffimage->image6;
+                    } else {
+                        $ord->Dropoffimage6 = NULL;
+                    }
+                    if (isset($Dropoffimage->image7)) {
+                        $ord->Dropoffimage7 = 'https://pihupickanddrop.com/public/order_img/' . $Dropoffimage->image7;
+                    } else {
+                        $ord->Dropoffimage7 = NULL;
+                    }
+                    if (isset($Dropoffimage->image8)) {
+                        $ord->Dropoffimage8 = 'https://pihupickanddrop.com/public/order_img/' . $Dropoffimage->image8;
+                    } else {
+                        $ord->Dropoffimage8 = NULL;
+                    }
+                    if (isset($Dropoffimage->image9)) {
+                        $ord->Dropoffimage9 = 'https://pihupickanddrop.com/public/order_img/' . $Dropoffimage->image9;
+                    } else {
+                        $ord->Dropoffimage9 = NULL;
+                    }
+                    if (isset($Dropoffimage->image10)) {
+                        $ord->Dropoffimage10 = 'https://pihupickanddrop.com/public/order_img/' . $Dropoffimage->image10;
+                    } else {
+                        $ord->Dropoffimage10 = NULL;
+                    }
                 }
                 $Pickupimage = Pickupimage::where('driver_id', auth()->user()->id)->where('order_id', $ord->id)->first();
                 if (isset($Pickupimage)) {
@@ -149,6 +174,31 @@ class Api extends Controller
                         $ord->Pickupimage5 = 'https://pihupickanddrop.com/public/order_img/' . $Pickupimage->image5;
                     } else {
                         $ord->Pickupimage5 = NULL;
+                    }
+                    if (isset($Pickupimage->image6)) {
+                        $ord->Pickupimage6 = 'https://pihupickanddrop.com/public/order_img/' . $Pickupimage->image6;
+                    } else {
+                        $ord->Pickupimage6 = NULL;
+                    }
+                    if (isset($Pickupimage->image7)) {
+                        $ord->Pickupimage7 = 'https://pihupickanddrop.com/public/order_img/' . $Pickupimage->image7;
+                    } else {
+                        $ord->Pickupimage7 = NULL;
+                    }
+                    if (isset($Pickupimage->image8)) {
+                        $ord->Pickupimage8 = 'https://pihupickanddrop.com/public/order_img/' . $Pickupimage->image8;
+                    } else {
+                        $ord->Pickupimage8 = NULL;
+                    }
+                    if (isset($Pickupimage->image9)) {
+                        $ord->Pickupimage9 = 'https://pihupickanddrop.com/public/order_img/' . $Pickupimage->image9;
+                    } else {
+                        $ord->Pickupimage9 = NULL;
+                    }
+                    if (isset($Pickupimage->image10)) {
+                        $ord->Pickupimage10 = 'https://pihupickanddrop.com/public/order_img/' . $Pickupimage->image10;
+                    } else {
+                        $ord->Pickupimage10 = NULL;
                     }
                 }
             }
@@ -473,6 +523,31 @@ class Api extends Controller
         } else {
             $filename5 = '';
         }
+        if ($request->hasFile('image6')) {
+            $filename6 = fileUpload('order_img',  $request->file('image6'));
+        } else {
+            $filename6 = '';
+        }
+        if ($request->hasFile('image7')) {
+            $filename7 = fileUpload('order_img',  $request->file('image7'));
+        } else {
+            $filename7 = '';
+        }
+        if ($request->hasFile('image8')) {
+            $filename8 = fileUpload('order_img',  $request->file('image8'));
+        } else {
+            $filename8 = '';
+        }
+        if ($request->hasFile('image9')) {
+            $filename9 = fileUpload('order_img',  $request->file('image9'));
+        } else {
+            $filename9 = '';
+        }
+        if ($request->hasFile('image10')) {
+            $filename10 = fileUpload('order_img',  $request->file('image10'));
+        } else {
+            $filename10 = '';
+        }
 
         Order::where('id', $request->order_id)->update(["assign_status" => "2", "action_status" => 2]);
 
@@ -484,6 +559,11 @@ class Api extends Controller
                 "image3" => $filename3,
                 "image4" => $filename4,
                 "image5" => $filename5,
+                "image6" => $filename6,
+                "image7" => $filename7,
+                "image8" => $filename8,
+                "image9" => $filename9,
+                "image10" => $filename10,
             ]
         );
         $message = "Saved Successfully.";
@@ -534,6 +614,31 @@ class Api extends Controller
         } else {
             $filename5 = '';
         }
+        if ($request->hasFile('image6')) {
+            $filename6 = fileUpload('order_img',  $request->file('image6'));
+        } else {
+            $filename6 = '';
+        }
+        if ($request->hasFile('image7')) {
+            $filename7 = fileUpload('order_img',  $request->file('image7'));
+        } else {
+            $filename7 = '';
+        }
+        if ($request->hasFile('image8')) {
+            $filename8 = fileUpload('order_img',  $request->file('image8'));
+        } else {
+            $filename8 = '';
+        }
+        if ($request->hasFile('image9')) {
+            $filename9 = fileUpload('order_img',  $request->file('image9'));
+        } else {
+            $filename9 = '';
+        }
+        if ($request->hasFile('image10')) {
+            $filename10 = fileUpload('order_img',  $request->file('image10'));
+        } else {
+            $filename10 = '';
+        }
 
         Pickupimage::updateOrCreate(
             ["order_id" => $request->order_id, "driver_id" => auth()->user()->id],
@@ -543,6 +648,11 @@ class Api extends Controller
                 "image3" => $filename3,
                 "image4" => $filename4,
                 "image5" => $filename5,
+                "image6" => $filename6,
+                "image7" => $filename7,
+                "image8" => $filename8,
+                "image9" => $filename9,
+                "image10" => $filename10,
             ]
         );
 

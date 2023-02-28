@@ -25,8 +25,9 @@ class DashboardController extends Controller
         $data['EmployeeUser'] = User::where('user_type', 3)->count();
         $data['VehicleModel'] = VehicleModel::count();
         $data['VehicleVariant'] = VehicleVariant::count();
-        $data['DriverUsers'] = User::where('user_type', 2)->count();
-        if (auth()->user()->user_type == "3") {
+        $data['DriverUsers'] = User::where('user_type', 4)->count();
+        $data['AdminUsers'] = User::where('user_type', 2)->count();
+        if (auth()->user()->user_type == 3) {
             $data['Order'] =  Order::where("user_id", auth()->user()->id)->count();
             $data['OrderDetails'] =  Order::where("user_id", auth()->user()->id)->latest('id')->limit(5)->get();
         } else {

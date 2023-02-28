@@ -508,6 +508,31 @@
                                                     src="{{ asset('images/order_img/' . $pickUpImages->image5) }} "
                                                     alt="">
                                             @endif
+                                            @if ($pickUpImages->image6)
+                                                <img class="mx-2" height="150px" width="150px"  style="margin-top:15px;
+                                                    src="{{ asset('images/order_img/' . $pickUpImages->image6) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($pickUpImages->image7)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $pickUpImages->image7) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($pickUpImages->image8)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $pickUpImages->image8) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($pickUpImages->image9)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $pickUpImages->image9) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($pickUpImages->image10)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $pickUpImages->image10) }} "
+                                                    alt="">
+                                            @endif
                                         @else
                                             <label for="">No Images</label>
                                         @endif
@@ -542,6 +567,31 @@
                                             @if ($dropOfImages->image5)
                                                 <img class="mx-2" height="150px" width="150px"
                                                     src="{{ asset('images/order_img/' . $dropOfImages->image5) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($dropOfImages->image6)
+                                                <img class="mx-2" height="150px" width="150px" style="margin-top:20px; margin-bottom:15px;"
+                                                    src="{{ asset('images/order_img/' . $dropOfImages->image6) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($dropOfImages->image7)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $dropOfImages->image7) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($dropOfImages->image8)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $dropOfImages->image8) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($dropOfImages->image9)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $dropOfImages->image9) }} "
+                                                    alt="">
+                                            @endif
+                                            @if ($dropOfImages->image10)
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    src="{{ asset('images/order_img/' . $dropOfImages->image10) }} "
                                                     alt="">
                                             @endif
                                         @else

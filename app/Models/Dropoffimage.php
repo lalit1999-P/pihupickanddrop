@@ -9,5 +9,5 @@ class Dropoffimage extends Model
 {
     use HasFactory;
     protected $table = 'drop_off_image';
-    protected $fillable = ['drop_off_image', 'order_id', "driver_id", 'image1', "image2", "image3", "image4", "image5"];
+    protected $fillable = ['drop_off_image', 'order_id', "driver_id", 'image1', "image2", "image3", "image4", "image5",'image6', "image7", "image8", "image9", "image10"];
 }

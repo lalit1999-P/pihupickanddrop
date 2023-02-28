@@ -21,7 +21,11 @@ class UserController extends Controller
      */
     public function view()
     {
-        $data = User::orderByDesc('id')->where('user_type', 2)->with('UserDetails')->latest()->get();
+        if (auth()->user()->id == 1) {
+            $data = User::orderByDesc('id')->where('user_type', 4)->with('UserDetails')->latest()->get();
+        } else {
+            $data = User::orderByDesc('id')->where('user_type', 4)->where('user_id', auth()->user()->id)->with('UserDetails')->latest()->get();
+        }
         return view('admin.user.index')->with('User', $data);
     }
 
@@ -93,7 +97,7 @@ class UserController extends Controller
         }
 
         $data = $request->all();
-        $data['user_type'] = 2;
+        $data['user_type'] = "4";
         $data['status'] = $request->status;
         $userdata = User::find($request->id);
         if ($request->file('image')) {
@@ -102,6 +106,7 @@ class UserController extends Controller
             $data['image'] = $userdata->image ?? "";
         }
         if (!$request->id) {
+            $data['user_id'] = auth()->user()->id;
             $data['password'] = bcrypt($request->password);
         }
         $user = User::updateOrCreate(['id' => $request->id], $data);

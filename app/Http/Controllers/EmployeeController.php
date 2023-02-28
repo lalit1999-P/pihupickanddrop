@@ -17,9 +17,13 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function view()
-    {   
+    {
         DB::enableQueryLog();
-        $data = User::where("user_type", '3')->orderByDesc('id')->get();
+        if (auth()->user()->id == 1) {
+            $data = User::where("user_type", 3)->orderByDesc('id')->get();
+        } else {
+            $data = User::where("user_type", 3)->where('user_id', auth()->user()->id)->orderByDesc('id')->get();
+        }
         // dd(DB::getQueryLog());
         return view('admin.employee.index')->with('User', $data);
     }
@@ -58,7 +62,7 @@ class EmployeeController extends Controller
         ]);
 
         $data = $request->all();
-        $data['user_type'] = '3';
+        $data['user_type'] = 3;
         $data['status'] = $request->status;
         $userdata = User::find($request->id);
         if ($request->file('image')) {
@@ -69,6 +73,7 @@ class EmployeeController extends Controller
             $data['image'] = isset($userdata->image) ? $userdata->image : "";
         }
         if (!$request->id) {
+            $data['user_id'] = auth()->user()->id;
             $data['password'] = bcrypt($request->password);
         }
         $user = User::updateOrCreate(['id' => $request->id], $data);

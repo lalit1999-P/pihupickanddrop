@@ -51,7 +51,12 @@
             <table class="custom-table">
                 <tr>
                     <td>
-                        <h3 style="margin:0px;margin-bottom:15px;">Pihu Inc.</h3>
+                        <!--<h3 style="margin:0px;margin-bottom:15px;">Pihu Inc.</h3>-->
+                         <h3  style="margin:0px;margin-bottom:15px;">Pihu Pickup & Drop Services</h3><br/>
+                                    B/H. Titanium City Centre, 2ND FLOOR, <br/>
+                                    Block C-209, PNTC Complex,<br/>
+                                    Radio Mirchi Road, Prahladnagar, Satellite, <br/>
+                                    Ahmedabad, Gujarat, 380015
                         {{-- <div style="padding-bottom: 5px;">
                             1912 Harvest Lane
                         </div>

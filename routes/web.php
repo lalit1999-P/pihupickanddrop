@@ -10,7 +10,9 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\VehicleModelController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleVariantController;
+use App\Http\Controllers\AdminController;
 use App\Models\VehicleVariant;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -35,14 +37,15 @@ Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name(
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::middleware('role:ROLE_SUPERADMIN|ROLE_EMPLOYEE')->group(function () {
+    Route::middleware('role:ROLE_SUPERADMIN|ROLE_EMPLOYEE|ROLE_ADMIN')->group(function () {
 
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
         Route::get('profile-view/{id}', [AuthController::class, 'profileView'])->name('profile-view');
         Route::post('profile-update', [AuthController::class, 'update'])->name('profile-update');
         Route::get('/', [DashboardController::class, 'index'])->name('/');
         Route::post("get-vehicle-verient", [VehicleVariantController::class, 'getVehicleVarient'])->name("get-vehicle-verient");
-
+    });
+    Route::middleware('role:ROLE_ADMIN|ROLE_EMPLOYEE|ROLE_SUPERADMIN')->group(function () {
         Route::get('serviceorder', [ServiceOrderController::class, 'view'])->name('serviceorder');
         Route::post('ajax-serviceorder', [ServiceOrderController::class, 'index'])->name('ajax-serviceorder');
         Route::get('create-serviceorder', [ServiceOrderController::class, 'create'])->name('create-serviceorder');
@@ -54,7 +57,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('generate-invoice-pdf/{id}', [ServiceOrderController::class, 'generateInvoicePDF'])->name('generate-invoice-pdf');
         Route::post('save-invoice', [ServiceOrderController::class, 'saveinvoice'])->name('save-invoice');
     });
-    Route::middleware('role:ROLE_SUPERADMIN')->group(function () {
+    Route::middleware('role:ROLE_ADMIN|ROLE_SUPERADMIN')->group(function () {
 
         Route::get('users', [UserController::class, 'view'])->name('user');
         Route::post('ajax-users', [UserController::class, 'index'])->name('ajax-users');
@@ -103,5 +106,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('store-vehicle-variant', [VehicleVariantController::class, 'store'])->name('store-vehicle-variant');
         Route::delete('delete-vehicle-variant/{id}', [VehicleVariantController::class, 'destroy'])->name('delete-vehicle-variant');
         Route::get('/export-vehicle-verient', [VehicleVariantController::class, 'export'])->name('export-vehicle-verient');
+    });
+    Route::middleware('role:ROLE_SUPERADMIN')->group(function () {
+        Route::get('admin', [AdminController::class, 'index'])->name('admin');
+        Route::get('create-admin', [AdminController::class, 'create'])->name('create-admin');
+        Route::get('edit-admin/{id}', [AdminController::class, 'edit'])->name('edit-admin');
+        Route::post('store-admin', [AdminController::class, 'store'])->name('store-admin');
+        Route::post('delete-admin', [AdminController::class, 'destroy'])->name('delete-admin');
+        Route::get('/export-admin', [AdminController::class, 'export'])->name('export-admin');
     });
 });

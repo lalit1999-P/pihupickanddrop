@@ -230,7 +230,7 @@
 
     <link rel="stylesheet" href="{{ asset('plugins/select2/css/select2.min.css') }}">
     <script src="{{ asset('plugins/select2/js/select2.full.min.js') }}"></script>
-
+    <script src="{{ asset('js/ajax-call.js') }}"></script>
     {{-- <script src="{{ asset('assets/js/custom.js') }}"></script> --}}
 
 </body>

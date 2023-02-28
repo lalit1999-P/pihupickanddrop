@@ -36,12 +36,13 @@
         <!-- ============================================================== -->
         <div class="row">
             <!-- Column -->
-            @if (auth()->user()->user_type == 1)
+            @if (auth()->user()->user_type == 2 or auth()->user()->user_type == 1)
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Total Employee User
-                            </h4>
+                            <a href="/employee">
+                                <h4 class="card-title">Total Employee User</h4>
+                            </a>
                             <div class="text-end">
                                 <h2 class="font-light mb-0"><i class="ti-user text-success"></i>
                                     {{ $TotalCount['EmployeeUser'] }}</h2>
@@ -61,8 +62,9 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Total Driver Users
-                            </h4>
+                            <a href="/users">
+                                <h4 class="card-title">Total Driver Users</h4>
+                            </a>
                             <div class="text-end">
                                 <h2 class="font-light mb-0"><i class="ti-user text-info"></i>
                                     {{ $TotalCount['DriverUsers'] }}
@@ -80,7 +82,9 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Total Vehicle Model</h4>
+                            <a href="/vehicle-model">
+                                <h4 class="card-title">Total Vehicle Model</h4>
+                            </a>
                             <div class="text-end">
                                 <h2 class="font-light mb-0"><i class="ti-car text-success"></i>
                                     {{ $TotalCount['VehicleModel'] }}</h2>
@@ -97,7 +101,9 @@
                 <div class="col-sm-6">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title">Total Vehicle Variant</h4>
+                            <a href="/vehicle-variant">
+                                <h4 class="card-title">Total Vehicle Variant</h4>
+                            </a>
                             <div class="text-end">
                                 <h2 class="font-light mb-0"><i class="ti-car text-success"></i>
                                     {{ $TotalCount['VehicleVariant'] }}</h2>
@@ -112,23 +118,50 @@
                     </div>
                 </div>
             @endif
-            <div class="col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title">Total Service Order</h4>
-                        <div class="text-end">
-                            <h2 class="font-light mb-0"><i class="ti-arrow-up text-success"></i> {{ $TotalCount['Order'] }}
-                            </h2>
-                            <span class="text-muted">Service Order</span>
-                        </div>
-                        {{-- <span class="text-success">80%</span>
+            @if (auth()->user()->user_type == 2 or auth()->user()->user_type == 3 or auth()->user()->user_type == 1)
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="/serviceorder">
+                                <h4 class="card-title">Total Service Order</h4>
+                            </a>
+                            <div class="text-end">
+                                <h2 class="font-light mb-0"><i class="ti-arrow-up text-success"></i>
+                                    {{ $TotalCount['Order'] }}
+                                </h2>
+                                <span class="text-muted">Service Order</span>
+                            </div>
+                            {{-- <span class="text-success">80%</span>
                             <div class="progress">
                                 <div class="progress-bar bg-success" role="progressbar" style="width: 80%; height: 6px;"
                                     aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
                             </div> --}}
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
+            @if (auth()->user()->user_type == 1)
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <a href="/serviceorder">
+                                <h4 class="card-title">Total Admin User</h4>
+                            </a>
+                            <div class="text-end">
+                                <h2 class="font-light mb-0"><i class="ti-arrow-up text-success"></i>
+                                    {{ $TotalCount['AdminUsers'] }}
+                                </h2>
+                                <span class="text-muted">Admin User List </span>
+                            </div>
+                            {{-- <span class="text-success">80%</span>
+                        <div class="progress">
+                            <div class="progress-bar bg-success" role="progressbar" style="width: 80%; height: 6px;"
+                                aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div> --}}
+                        </div>
+                    </div>
+                </div>
+            @endif
             <!-- Column -->
         </div>
         <!-- ============================================================== -->
@@ -138,74 +171,76 @@
         <!-- ============================================================== -->
         <!-- Table -->
         <!-- ============================================================== -->
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="d-md-flex">
-                            <h4 class="card-title col-md-10 mb-md-0 mb-3 align-self-center">Latest Service Order</h4>
+        @if (auth()->user()->user_type == 2 or auth()->user()->user_type == 3 or auth()->user()->user_type == 1)
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-md-flex">
+                                <h4 class="card-title col-md-10 mb-md-0 mb-3 align-self-center">Latest Service Order</h4>
 
-                        </div>
-                        <div class="table-responsive mt-5">
-                            <table class="table stylish-table no-wrap">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Customer Name</th>
-                                        {{-- <th>Price</th> --}}
-                                        <th>Email</th>
-                                        <th>Mobile Number</th>
-                                        <th>Model</th>
-                                        <th>Varient</th>
-                                        <th>Order Date Time</th>
-                                        @if (auth()->user()->user_type == '1')
-                                            <th>Assign Driver</th>
-                                        @endif
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $no = 1; ?>
-                                    @if (!empty($TotalCount['OrderDetails'][0]))
-                                        @foreach ($TotalCount['OrderDetails'] as $value)
-                                            <tr>
-                                                <td>{{ $no++ }}</td>
-                                            <td>{{ $value->full_name }} </td>
-                                                </td>
-                                                <td>{{ $value->email_id }}</td>
-                                                <td>{{ $value->mobile_no }}</td>
-                                                <td>{{ $value->vehicleModel ? $value->vehicleModel->vehicle_model : '' }}
-                                                </td>
-                                                <td>{{ $value->Varient ? $value->Varient->vehicle_variant : '' }}
-                                                </td>
-                                                <td>{{ Illuminate\Support\Carbon::parse($value->created_at)->format('Y-m-d h:i:s a') }}
-                                                </td>
-                                                {{-- <td>{{ $value->Category ? $value->Category->category : '' }}</td> --}}
-                                                @if (auth()->user()->user_type == '1')
-                                                    <td>
-                                                        @if ($value->driver_id == null)
-                                                            <span class="badge badge-success">New
-                                                                Order</span>
-                                                        @else
-                                                            <span
-                                                                class="badge badge-primary">{{ $value->DriverUsers ? $value->DriverUsers->name : '' }}</span>
-                                                        @endif
-                                                    </td>
-                                                @endif
-                                            </tr>
-                                        @endforeach
-                                    @else
+                            </div>
+                            <div class="table-responsive mt-5">
+                                <table class="table stylish-table no-wrap">
+                                    <thead>
                                         <tr>
-                                            <td colspan="7">No data available in table
-                                            </td>
+                                            <th>#</th>
+                                            <th>Customer Name</th>
+                                            {{-- <th>Price</th> --}}
+                                            <th>Email</th>
+                                            <th>Mobile Number</th>
+                                            <th>Model</th>
+                                            <th>Varient</th>
+                                            <th>Order Date Time</th>
+                                            @if (auth()->user()->user_type == '1')
+                                                <th>Assign Driver</th>
+                                            @endif
                                         </tr>
-                                    @endif
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        <?php $no = 1; ?>
+                                        @if (!empty($TotalCount['OrderDetails'][0]))
+                                            @foreach ($TotalCount['OrderDetails'] as $value)
+                                                <tr>
+                                                    <td>{{ $no++ }}</td>
+                                                    <td>{{ $value->full_name }} </td>
+                                                    </td>
+                                                    <td>{{ $value->email_id }}</td>
+                                                    <td>{{ $value->mobile_no }}</td>
+                                                    <td>{{ $value->vehicleModel ? $value->vehicleModel->vehicle_model : '' }}
+                                                    </td>
+                                                    <td>{{ $value->Varient ? $value->Varient->vehicle_variant : '' }}
+                                                    </td>
+                                                    <td>{{ Illuminate\Support\Carbon::parse($value->created_at)->format('Y-m-d h:i:s a') }}
+                                                    </td>
+                                                    {{-- <td>{{ $value->Category ? $value->Category->category : '' }}</td> --}}
+                                                    @if (auth()->user()->user_type == '1')
+                                                        <td>
+                                                            @if ($value->driver_id == null)
+                                                                <span class="badge badge-success">New
+                                                                    Order</span>
+                                                            @else
+                                                                <span
+                                                                    class="badge badge-primary">{{ $value->DriverUsers ? $value->DriverUsers->name : '' }}</span>
+                                                            @endif
+                                                        </td>
+                                                    @endif
+                                                </tr>
+                                            @endforeach
+                                        @else
+                                            <tr>
+                                                <td colspan="7">No data available in table
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        @endif
         <!-- ============================================================== -->
         <!-- Table -->
         <!-- ============================================================== -->

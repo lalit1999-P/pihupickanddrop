@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'id', 'user_type', 'name', 'email', 'password', 'contact', 'image', 'status', 'created_at', 'updated_at', 'postal_code', 'city', 'about_me', 'address', 'otp'
+        'id', 'user_type', 'name','user_id', 'email', 'password', 'contact', 'image', 'status', 'created_at', 'updated_at', 'postal_code', 'city', 'about_me', 'address', 'otp'
     ];
 
     /**
@@ -76,6 +76,8 @@ class User extends Authenticatable
     public function hasRole($role)
     {
         $role = explode('|', $role);
+        //dd($role);
+      //  dd($this->roles()->first());
         if ($this->roles()->whereIn('name', $role)->first()) {
             return true;
         }
