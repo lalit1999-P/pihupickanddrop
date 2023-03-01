@@ -93,6 +93,7 @@ class AdminController extends Controller
         }
         $user = User::updateOrCreate(['id' => $request->id], $data);
         if ($request->id) {
+            $data['user_id'] = auth()->user()->id;
             toastr()->success('Successfully Update User!', 'Update User');
         } else {
             UserRole::create(['role_id' => 2, 'user_id' => $user->id]);
