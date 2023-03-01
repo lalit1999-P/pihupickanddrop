@@ -160,8 +160,34 @@
                                             </div>
                                         </div>
                                     @endif
-
-
+                                    @if (auth()->user()->user_type == 1)
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label>Admin User List</label>
+                                                <select class="form-control select2" name="admin_user_id"
+                                                    style="width: 100%;">
+                                                    <option value="">-Select Driver-</option>
+                                                    @foreach (getAdminList() as $adminUser)
+                                                        @if (old('admin_user_id'))
+                                                            <option value="{{ $adminUser->id }}"
+                                                                {{ old('adminUser') == $adminUser->id ? 'selected' : "'" }}>
+                                                                {{ $adminUser->name }}
+                                                            </option>
+                                                        @else
+                                                            <?php $idAdminUser = isset($User) ? $User->user_id : null; ?>
+                                                            <option value="{{ $adminUser->id }}"
+                                                                @if ($adminUser->id == $idAdminUser) selected @endif>
+                                                                {{ $adminUser->name }}
+                                                            </option>
+                                                        @endif
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('admin_user_id'))
+                                                    <span class="alert-danger">{{ $errors->first('admin_user_id') }}</span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    @endif
                                 </div>
                                 <br><br>
                                 <h6 class="heading-small text-muted mb-4">Customer Details</h6>
@@ -273,8 +299,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Service Type </label>
-                                            <select class="form-control" name="service_type"
-                                                style="width: 100%;">
+                                            <select class="form-control" name="service_type" style="width: 100%;">
                                                 <option value=" ">Select Vehicle Model</option>
                                                 @if (old('service_type'))
                                                     <option value="1"
@@ -509,33 +534,34 @@
                                                     alt="">
                                             @endif
                                             @if ($pickUpImages->image6)
-                                                <img class="mx-2" height="150px" width="150px"  style="margin-top:15px;
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    style="margin-top:15px;
                                                     src="{{ asset('images/order_img/' . $pickUpImages->image6) }} "
-                                                    alt="">
+                                                                alt="">
+     @endif
+                                                @if ($pickUpImages->image7)
+                                                    <img class="mx-2" height="150px" width="150px"
+                                                        src="{{ asset('images/order_img/' . $pickUpImages->image7) }} "
+                                                        alt="">
+                                                @endif
+                                                @if ($pickUpImages->image8)
+                                                    <img class="mx-2" height="150px" width="150px"
+                                                        src="{{ asset('images/order_img/' . $pickUpImages->image8) }} "
+                                                        alt="">
+                                                @endif
+                                                @if ($pickUpImages->image9)
+                                                    <img class="mx-2" height="150px" width="150px"
+                                                        src="{{ asset('images/order_img/' . $pickUpImages->image9) }} "
+                                                        alt="">
+                                                @endif
+                                                @if ($pickUpImages->image10)
+                                                    <img class="mx-2" height="150px" width="150px"
+                                                        src="{{ asset('images/order_img/' . $pickUpImages->image10) }} "
+                                                        alt="">
+                                                @endif
+                                            @else
+                                                <label for="">No Images</label>
                                             @endif
-                                            @if ($pickUpImages->image7)
-                                                <img class="mx-2" height="150px" width="150px"
-                                                    src="{{ asset('images/order_img/' . $pickUpImages->image7) }} "
-                                                    alt="">
-                                            @endif
-                                            @if ($pickUpImages->image8)
-                                                <img class="mx-2" height="150px" width="150px"
-                                                    src="{{ asset('images/order_img/' . $pickUpImages->image8) }} "
-                                                    alt="">
-                                            @endif
-                                            @if ($pickUpImages->image9)
-                                                <img class="mx-2" height="150px" width="150px"
-                                                    src="{{ asset('images/order_img/' . $pickUpImages->image9) }} "
-                                                    alt="">
-                                            @endif
-                                            @if ($pickUpImages->image10)
-                                                <img class="mx-2" height="150px" width="150px"
-                                                    src="{{ asset('images/order_img/' . $pickUpImages->image10) }} "
-                                                    alt="">
-                                            @endif
-                                        @else
-                                            <label for="">No Images</label>
-                                        @endif
                                     </div>
                                     <hr>
                                     <div class="col-md-12">
@@ -570,7 +596,8 @@
                                                     alt="">
                                             @endif
                                             @if ($dropOfImages->image6)
-                                                <img class="mx-2" height="150px" width="150px" style="margin-top:20px; margin-bottom:15px;"
+                                                <img class="mx-2" height="150px" width="150px"
+                                                    style="margin-top:20px; margin-bottom:15px;"
                                                     src="{{ asset('images/order_img/' . $dropOfImages->image6) }} "
                                                     alt="">
                                             @endif

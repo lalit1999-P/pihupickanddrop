@@ -51,6 +51,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+       // dd($request->all());
         $rule = [
             'name' => 'required|regex:/^[a-zA-Z\s]+$/',
             'email' => 'required|email',
@@ -106,9 +107,17 @@ class UserController extends Controller
             $data['image'] = $userdata->image ?? "";
         }
         if (!$request->id) {
-            $data['user_id'] = auth()->user()->id;
+            $data['user_id'] = isset($request->admin_user_id) ? $request->admin_user_id : auth()->user()->id;
             $data['password'] = bcrypt($request->password);
+        }else{
+            if(auth()->user()->id == 1){
+                $data['user_id'] = isset($request->admin_user_id) ? $request->admin_user_id : auth()->user()->id;
+            }
         }
+        // if (!$request->id) {
+        //     $data['user_id'] = auth()->user()->id;
+        //     $data['password'] = bcrypt($request->password);
+        // }
         $user = User::updateOrCreate(['id' => $request->id], $data);
         $userdetails = UserDetails::where('user_id', $request->id)->first();
         $data['user_id'] = isset($user->id) ? $user->id : $request->id;

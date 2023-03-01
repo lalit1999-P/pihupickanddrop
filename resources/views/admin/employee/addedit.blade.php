@@ -93,10 +93,10 @@
                                                         <select class="form-control" name="status" id="status">
                                                             @if (old('status'))
                                                                 <option value="1"
-                                                                    {{ old('status') == "1" ? "selected" : "" }}>
+                                                                    {{ old('status') == '1' ? 'selected' : '' }}>
                                                                     Active </option>
                                                                 <option value="0"
-                                                                    {{ old('status') == "0" ? "selected" : "" }}>
+                                                                    {{ old('status') == '0' ? 'selected' : '' }}>
                                                                     Inactive </option>
                                                             @else
                                                                 <option value="1"
@@ -164,28 +164,63 @@
                                                 </div>
                                                 @endif
                                             </div>
-                                            <div class="form-group">
-                                                <label for="inputClientCompany"> Profile
-                                                    Image
-                                                    {{-- {!! fieldRequired() !!} --}}
-                                                </label>
-                                                <input type="file" id="image" accept="image/png, image/jpeg"
-                                                    name="image" class="form-control"
-                                                    value="{{ isset($User) ? $User->image : old('image') }}">
-                                                @if (isset($User))
-                                                    @if (isset($User))
-                                                        <img src="{{ asset('images/employee_image') . '/' . $User->image }}"
-                                                            alt="image" class="brand-image"
-                                                            style="width:100px;hieght:100px">
-                                                    @else
-                                                        <img src="{{ asset('images/no-image-icon-6.png') }}"
-                                                            alt="image" class="brand-image"
-                                                            style="width:100px;hieght:100px">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="inputClientCompany"> Profile
+                                                            Image
+                                                            {{-- {!! fieldRequired() !!} --}}
+                                                        </label>
+                                                        <input type="file" id="image"
+                                                            accept="image/png, image/jpeg" name="image"
+                                                            class="form-control"
+                                                            value="{{ isset($User) ? $User->image : old('image') }}">
+                                                        @if (isset($User))
+                                                            @if (isset($User))
+                                                                <img src="{{ asset('images/employee_image') . '/' . $User->image }}"
+                                                                    alt="image" class="brand-image"
+                                                                    style="width:100px;hieght:100px">
+                                                            @else
+                                                                <img src="{{ asset('images/no-image-icon-6.png') }}"
+                                                                    alt="image" class="brand-image"
+                                                                    style="width:100px;hieght:100px">
+                                                            @endif
+                                                        @endif
+                                                        @if ($errors->has('image'))
+                                                            <span
+                                                                class="alert-danger">{{ $errors->first('image') }}</span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    @if (auth()->user()->user_type == 1)
+                                                        <div class="form-group">
+                                                            <label>Admin User List</label>
+                                                            <select class="form-control select2" name="admin_user_id"
+                                                                style="width: 100%;">
+                                                                <option value="">-Select Driver-</option>
+                                                                @foreach (getAdminList() as $adminUser)
+                                                                    @if (old('admin_user_id'))
+                                                                        <option value="{{ $adminUser->id }}"
+                                                                            {{ old('adminUser') == $adminUser->id ? 'selected' : "'" }}>
+                                                                            {{ $adminUser->name }}
+                                                                        </option>
+                                                                    @else
+                                                                        <?php $idAdminUser = isset($User) ? $User->user_id : null; ?>
+                                                                        <option value="{{ $adminUser->id }}"
+                                                                            @if ($adminUser->id == $idAdminUser) selected @endif>
+                                                                            {{ $adminUser->name }}
+                                                                        </option>
+                                                                    @endif
+                                                                @endforeach
+                                                            </select>
+                                                            @if ($errors->has('admin_user_id'))
+                                                                <span
+                                                                    class="alert-danger">{{ $errors->first('admin_user_id') }}</span>
+                                                            @endif
+                                                        </div>
                                                     @endif
-                                                @endif
-                                                @if ($errors->has('image'))
-                                                    <span class="alert-danger">{{ $errors->first('image') }}</span>
-                                                @endif
+                                                </div>
                                             </div>
                                             <div class="form-group">
                                                 <label for="inputClientCompany">Address {!! fieldRequired() !!}</label>

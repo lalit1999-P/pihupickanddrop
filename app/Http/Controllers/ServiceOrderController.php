@@ -55,7 +55,7 @@ class ServiceOrderController extends Controller
     public function create()
     {
         //user_type 2 means driver
-        $DriverDeail =  User::where("user_type", 2)->get();
+        $DriverDeail =  User::where("user_type", 4)->get();
         $vehicleModel = VehicleModel::latest()->get();
         $Location = Location::latest()->get();
         return view('admin.serviceorder.add', ["vehicleModel" => $vehicleModel, "DriverDeail" => $DriverDeail, "Location" => $Location]);
@@ -98,7 +98,7 @@ class ServiceOrderController extends Controller
         if (isset($request->user_id)) {
             $data["user_id"] =  $request->user_id;
         } else {
-            $data["user_id"] =  auth()->user()->id;
+            $data["user_id"] = isset($request->admin_user_id) ? $request->admin_user_id : auth()->user()->id;
         }
 
         //assing status add 

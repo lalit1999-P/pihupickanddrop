@@ -1,4 +1,7 @@
 <?php
+
+use App\Models\User;
+
 function fileUpload($path, $image)
 {
     $imageName = time() . mt_rand(1, 50000) . '.' . $image->extension();
@@ -27,4 +30,9 @@ function timeSlot()
         "06-07 PM",
         "07-08 PM",
     ];
+}
+function getAdminList()
+{
+    $User = User::where('user_type', 2)->get();
+    return $User;
 }

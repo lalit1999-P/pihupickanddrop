@@ -20,21 +20,36 @@ class DashboardController extends Controller
     public function index()
     {
         $data = [];
-        $data['Category'] = Category::count();
-        $data['SubCategory'] = SubCategory::count();
-        $data['EmployeeUser'] = User::where('user_type', 3)->count();
-        $data['VehicleModel'] = VehicleModel::count();
-        $data['VehicleVariant'] = VehicleVariant::count();
-        $data['DriverUsers'] = User::where('user_type', 4)->count();
-        $data['AdminUsers'] = User::where('user_type', 2)->count();
-        if (auth()->user()->user_type == 3) {
-            $data['Order'] =  Order::where("user_id", auth()->user()->id)->count();
-            $data['OrderDetails'] =  Order::where("user_id", auth()->user()->id)->latest('id')->limit(5)->get();
-        } else {
+        if (auth()->user()->user_type == 1) {
+            $data['Category'] = Category::count();
+            $data['SubCategory'] = SubCategory::count();
+            $data['EmployeeUser'] = User::where('user_type', 3)->count();
+            $data['VehicleModel'] = VehicleModel::count();
+            $data['VehicleVariant'] = VehicleVariant::count();
+            $data['DriverUsers'] = User::where('user_type', 4)->count();
+            $data['AdminUsers'] = User::where('user_type', 2)->count();
             $data['Order'] =  Order::count();
             $data['OrderDetails'] =  Order::latest('id')->limit(5)->get();
+        } else {
+            $data['Category'] = Category::count();
+            $data['SubCategory'] = SubCategory::count();
+            $data['EmployeeUser'] = User::where('user_type', 3)->where("user_id", auth()->user()->id)->count();
+            $data['VehicleModel'] = VehicleModel::count();
+            $data['VehicleVariant'] = VehicleVariant::count();
+            $data['DriverUsers'] = User::where('user_type', 4)->where("user_id", auth()->user()->id)->count();
+            $data['AdminUsers'] = User::where('user_type', 2)->count();
+            if (auth()->user()->user_type == 3) {
+                $data['Order'] =  Order::where("user_id", auth()->user()->id)->count();
+                $data['OrderDetails'] =  Order::where("user_id", auth()->user()->id)->latest('id')->limit(5)->get();
+            } else {
+                $userId = User::where("user_type", 3)->where('user_id', auth()->user()->id)->pluck('id')->toArray();
+                array_push($userId, auth()->user()->id);
+                $userIds = $userId;
+              //  dd($userIds);
+                $data['Order'] = Order::whereIn("user_id", $userIds)->with(['Users', 'Category', 'DriverUsers'])->latest()->count();
+                $data['OrderDetails'] =  Order::whereIn("user_id", $userIds)->with(['Users', 'Category', 'DriverUsers'])->latest('id')->limit(5)->get();
+            }
         }
-
         return view('admin.dashbord')->with('TotalCount', $data);
     }
 

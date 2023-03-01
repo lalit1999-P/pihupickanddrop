@@ -73,8 +73,12 @@ class EmployeeController extends Controller
             $data['image'] = isset($userdata->image) ? $userdata->image : "";
         }
         if (!$request->id) {
-            $data['user_id'] = auth()->user()->id;
+            $data['user_id'] = isset($request->admin_user_id) ? $request->admin_user_id : auth()->user()->id;
             $data['password'] = bcrypt($request->password);
+        }else{
+            if(auth()->user()->id == 1){
+                $data['user_id'] = isset($request->admin_user_id) ? $request->admin_user_id : auth()->user()->id;
+            }
         }
         $user = User::updateOrCreate(['id' => $request->id], $data);
         if ($request->id) {

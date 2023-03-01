@@ -393,6 +393,37 @@
                                             @endif
                                         </div>
                                     </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            @if (auth()->user()->user_type == 1)
+                                                <div class="form-group">
+                                                    <label>Admin User List</label>
+                                                    <select class="form-control select2" name="admin_user_id"
+                                                        style="width: 100%;">
+                                                        <option value="">-Select Driver-</option>
+                                                        @foreach (getAdminList() as $adminUser)
+                                                            @if (old('admin_user_id'))
+                                                                <option value="{{ $adminUser->id }}"
+                                                                    {{ old('adminUser') == $adminUser->id ? 'selected' : "'" }}>
+                                                                    {{ $adminUser->name }}
+                                                                </option>
+                                                            @else
+                                                                <?php $idAdminUser = isset($User) ? $User->user_id : null; ?>
+                                                                <option value="{{ $adminUser->id }}"
+                                                                    @if ($adminUser->id == $idAdminUser) selected @endif>
+                                                                    {{ $adminUser->name }}
+                                                                </option>
+                                                            @endif
+                                                        @endforeach
+                                                    </select>
+                                                    @if ($errors->has('admin_user_id'))
+                                                        <span
+                                                            class="alert-danger">{{ $errors->first('admin_user_id') }}</span>
+                                                    @endif
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
 
 
