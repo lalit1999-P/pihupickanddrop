@@ -32,7 +32,7 @@ class ServiceOrderController extends Controller
         if ($userType == 1) {
             $data = Order::with(['Users', 'Category', 'DriverUsers', 'vehicleModel', 'Varient'])->latest()->get();
         } elseif ($userType == 2) {
-            $userId = User::where("user_type", 3)->where('id', auth()->user()->id)->pluck('id')->toArray();
+            $userId = User::where("user_type", 3)->where('user_id', auth()->user()->id)->pluck('id')->toArray();
             array_push($userId, auth()->user()->id);
             $userIds = $userId;
             $data = Order::whereIn("user_id", $userIds)->with(['Users', 'Category', 'DriverUsers'])->latest()->get();
