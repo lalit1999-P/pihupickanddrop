@@ -130,7 +130,7 @@ class ServiceOrderController extends Controller
             $Order = Order::where('id', $id)->firstOrFail();
             $currentUserType = auth()->user()->user_type;
             $isEdit = false;
-            if ($currentUserType == 1) {
+            if ($currentUserType == 1 or $currentUserType == 2) {
                 $isEdit = true;
             } else if ($currentUserType == 3) {
                 if ($Order->user_id == auth()->user()->id) {
