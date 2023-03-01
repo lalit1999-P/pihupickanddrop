@@ -12,7 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\VehicleVariantController;
 use App\Http\Controllers\AdminController;
 use App\Models\VehicleVariant;
-
+use App\Http\Controllers\ServiceAdvisoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -76,6 +76,14 @@ Route::middleware(['auth'])->group(function () {
         Route::post('store-employee', [EmployeeController::class, 'store'])->name('store-employee');
         Route::delete('delete-employee/{id}', [EmployeeController::class, 'destroy'])->name('delete-employee');
         Route::get('/export-employee', [EmployeeController::class, 'export'])->name('export-employee');
+
+        Route::get('service-advisory', [ServiceAdvisoryController::class, 'view'])->name('service-advisory');
+        Route::post('ajax-service-advisory', [ServiceAdvisoryController::class, 'index'])->name('ajax-service-advisory');
+        Route::get('create-service-advisory', [ServiceAdvisoryController::class, 'create'])->name('create-service-advisory');
+        Route::get('edit-service-advisory/{id}', [ServiceAdvisoryController::class, 'edit'])->name('edit-service-advisory');
+        Route::post('store-service-advisory', [ServiceAdvisoryController::class, 'store'])->name('store-service-advisory');
+        Route::delete('delete-service-advisory/{id}', [ServiceAdvisoryController::class, 'destroy'])->name('delete-service-advisory');
+        Route::get('/export-service-advisory', [ServiceAdvisoryController::class, 'export'])->name('export-service-advisory');
 
         Route::get('category', [CategoryController::class, 'view'])->name('category');
         Route::post('ajax-category', [CategoryController::class, 'index'])->name('ajax-category');

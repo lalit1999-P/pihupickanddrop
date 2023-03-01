@@ -13,7 +13,8 @@
                     <li class="sidebar-item"> <a
                             class="sidebar-link waves-effect waves-dark sidebar-link {{ Route::currentRouteName() == 'admin' || Route::currentRouteName() == 'create-admin' || Route::currentRouteName() == 'edit-admin' ? 'active' : '' }}"
                             href="{{ route('admin') }}" aria-expanded="false">
-                            <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Users Management</span></a>
+                            <i class="me-3 fa fa-user" aria-hidden="true"></i><span class="hide-menu">Users
+                                Management</span></a>
                     </li>
                 @endif
                 @if (auth()->user()->user_type == 2 or auth()->user()->user_type == 1)
@@ -35,6 +36,10 @@
                             class="sidebar-link waves-effect waves-dark sidebar-link {{ Route::currentRouteName() == 'vehicle-variant' || Route::currentRouteName() == 'create-vehicle-variant' || Route::currentRouteName() == 'edit-vehicle-variant' ? 'active' : '' }}"
                             href="{{ route('vehicle-variant') }}" aria-expanded="false"><i class="me-3 fa fa-car"
                                 aria-hidden="true"></i><span class="hide-menu">Vehicle Variant</span></a></li>
+                    <li class="sidebar-item"> <a
+                            class="sidebar-link waves-effect waves-dark sidebar-link {{ Route::currentRouteName() == 'service-advisory' || Route::currentRouteName() == 'create-service-advisory' || Route::currentRouteName() == 'edit-service-advisory' ? 'active' : '' }}"
+                            href="{{ route('service-advisory') }}" aria-expanded="false"><i class="me-3 fa fa-table"
+                                aria-hidden="true"></i><span class="hide-menu">Service Advisory</span></a></li>
                 @endif
                 @if (auth()->user()->user_type == 2 or auth()->user()->user_type == 3 or auth()->user()->user_type == 1)
                     <li class="sidebar-item"> <a
