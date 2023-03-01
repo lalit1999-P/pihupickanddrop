@@ -26,7 +26,7 @@ class AuthenticateController extends Controller
     public function login(LoginRequest $request)
     {
         $credentials = $request->only('contact', 'password');
-        if (Auth::attempt($credentials) && auth()->user()->user_type == "2") {
+        if (Auth::attempt($credentials) && auth()->user()->user_type == "4") {
             $user = auth()->user();
             if ($user->status == 1) {
                 $this->response['data'] = new LoginResource($user);
