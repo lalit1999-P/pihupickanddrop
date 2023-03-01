@@ -133,7 +133,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    @if (auth()->user()->user_type == '1')
+                                    @if (auth()->user()->user_type == '1' or auth()->user()->user_type == '2')
                                         <div class="col-lg-6">
                                             <div class="form-group">
                                                 <label>Driver Detail</label>
