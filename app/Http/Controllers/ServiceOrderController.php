@@ -32,6 +32,7 @@ class ServiceOrderController extends Controller
         if ($userType == 1) {
             $data = Order::with(['Users', 'Category', 'DriverUsers', 'vehicleModel', 'Varient'])->latest()->get();
         } elseif ($userType == 2) {
+            $data = Order::where("user_id", auth()->user()->id)->with(['Users', 'Category', 'DriverUsers'])->latest()->get();
         } else {
             $data = Order::where("user_id", auth()->user()->id)->with(['Users', 'Category', 'DriverUsers'])->latest()->get();
         }
