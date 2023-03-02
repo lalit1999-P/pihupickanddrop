@@ -284,7 +284,7 @@ var GMaps = (function(global) {
         if (options.hasOwnProperty(i)) {
           var option = options[i];
 
-          html += '<li><a id="' + control + '_' + i + '" href="#">' + option.title + '</a></li>';
+          html += '<li><a id="' + control + '_' + i + '" href="{{route('/')}}">' + option.title + '</a></li>';
         }
       }
 

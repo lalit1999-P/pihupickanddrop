@@ -13,7 +13,7 @@ use App\Http\Controllers\VehicleVariantController;
 use App\Http\Controllers\AdminController;
 use App\Models\VehicleVariant;
 use App\Http\Controllers\ServiceAdvisoryController;
-
+use App\Http\Controllers\LocationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -76,6 +76,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('store-employee', [EmployeeController::class, 'store'])->name('store-employee');
         Route::delete('delete-employee/{id}', [EmployeeController::class, 'destroy'])->name('delete-employee');
         Route::get('/export-employee', [EmployeeController::class, 'export'])->name('export-employee');
+
+        Route::get('location', [LocationController::class, 'index'])->name('location');
+        Route::get('create-location', [LocationController::class, 'create'])->name('create-location');
+        Route::get('edit-location/{id}', [LocationController::class, 'edit'])->name('edit-location');
+        Route::post('store-location', [LocationController::class, 'store'])->name('store-location');
+        Route::delete('delete-location/{id}', [LocationController::class, 'destroy'])->name('delete-location');
+        Route::get('/export-location', [LocationController::class, 'export'])->name('export-location');
 
         Route::get('service-advisory', [ServiceAdvisoryController::class, 'view'])->name('service-advisory');
         Route::post('ajax-service-advisory', [ServiceAdvisoryController::class, 'index'])->name('ajax-service-advisory');

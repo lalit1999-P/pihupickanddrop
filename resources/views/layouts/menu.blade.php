@@ -38,8 +38,12 @@
                                 aria-hidden="true"></i><span class="hide-menu">Vehicle Variant</span></a></li>
                     <li class="sidebar-item"> <a
                             class="sidebar-link waves-effect waves-dark sidebar-link {{ Route::currentRouteName() == 'service-advisory' || Route::currentRouteName() == 'create-service-advisory' || Route::currentRouteName() == 'edit-service-advisory' ? 'active' : '' }}"
-                            href="{{ route('service-advisory') }}" aria-expanded="false"><i class="me-3 fa fa-table"
+                            href="{{ route('service-advisory') }}" aria-expanded="false"><i class="me-3 fab fa-servicestack"
                                 aria-hidden="true"></i><span class="hide-menu">Service Advisory</span></a></li>
+                    <li class="sidebar-item"> <a
+                            class="sidebar-link waves-effect waves-dark sidebar-link {{ Route::currentRouteName() == 'location' || Route::currentRouteName() == 'create-location' || Route::currentRouteName() == 'edit-location' ? 'active' : '' }}"
+                            href="{{ route('location') }}" aria-expanded="false"><i class="me-3 fa fa-map-marker"
+                                aria-hidden="true"></i><span class="hide-menu">Locations</span></a></li>
                 @endif
                 @if (auth()->user()->user_type == 2 or auth()->user()->user_type == 3 or auth()->user()->user_type == 1)
                     <li class="sidebar-item"> <a

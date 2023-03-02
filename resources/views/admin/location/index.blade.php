@@ -6,24 +6,24 @@
     <div class="page-breadcrumb">
         <div class="row align-items-center">
             <div class="col-md-6 col-8 align-self-center">
-                <h3 class="page-title mb-0 p-0">Employee List</h3>
+                <h3 class="page-title mb-0 p-0">Location List</h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('/') }}">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Employee</li>
+                            <li class="breadcrumb-item active" aria-current="page">Location</li>
                         </ol>
                     </nav>
                 </div>
             </div>
             <div class="col-md-6 col-4 align-self-center">
                 <div class="text-end upgrade-btn">
-                    <a href="{{ route('create-employee') }}" class="btn btn-success d-none d-md-inline-block text-white"><i
-                            class="fas fa-plus"></i>Add Employee
-                        User</a>
-                    <a href="{{ route('export-employee') }}" class="btn btn-info d-none d-md-inline-block text-white"><i
+                    <a href="{{ route('create-location') }}" class="btn btn-success d-none d-md-inline-block text-white"><i
+                            class="fas fa-plus"></i>Add Location
+                        </a>
+                    {{-- <a href="{{ route('export-location') }}" class="btn btn-info d-none d-md-inline-block text-white"><i
                             class="fas fa-note"></i> Excel Export
-                    </a>
+                    </a> --}}
                 </div>
             </div>
         </div>
@@ -47,21 +47,19 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Contact</th>
+                                    <th>Location Name</th>
+                                    <th>Address</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $no = 1; ?>
-                                @foreach ($User as $value)
+                                @foreach ($Location as $value)
                                     <tr>
                                         <td>{{ $no++ }}</td>
-                                        <td>{{ $value->name }}</td>
-                                        <td>{{ $value->email }}</td>
-                                        <td>{{ $value->contact }}</td>
+                                        <td>{{ $value->location }}</td>
+                                        <td>{{ $value->address }}</td>
                                         <td>
                                             @if ($value->status == 1)
                                                 <span class="badge badge-success">Active</span>
@@ -70,16 +68,15 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <form method="POST" action="{{ route('delete-employee', $value->id) }}">
+                                            <form method="POST" action="{{ route('delete-location', $value->id) }}">
                                                 @csrf
                                                 <input name="_method" type="hidden" value="DELETE">
-                                                <a href="{{ route('edit-employee', $value->id) }}"
+                                                <a href="{{ route('edit-location', $value->id) }}"
                                                     class="edit btn btn-info btn-sm"><i class="fas fa-pencil-alt"></i></a>
                                                 <button type="submit" class="btn btn-danger btn-sm show_confirm"
                                                     data-toggle="tooltip" title='Delete'><i
                                                         class="fas fa-trash"></i></button>
                                             </form>
-
                                         </td>
                                     </tr>
                                 @endforeach

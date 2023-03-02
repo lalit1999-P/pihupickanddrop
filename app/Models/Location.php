@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     use HasFactory;
-    
+
     protected $table = 'locations';
-    protected $fillable = ['locations'];
+    protected $fillable = ['location', 'address', 'user_id', 'status', 'created_at', 'updated_at'];
 }
