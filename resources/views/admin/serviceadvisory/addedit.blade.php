@@ -6,7 +6,8 @@
     <div class="page-breadcrumb">
         <div class="row align-items-center">
             <div class="col-md-6 col-8 align-self-center">
-                <h3 class="page-title mb-0 p-0">{{ isset($User->id) ? 'Service Advisory Update' : 'Service Advisory Add' }} </h3>
+                <h3 class="page-title mb-0 p-0">{{ isset($User->id) ? 'Service Advisory Update' : 'Service Advisory Add' }}
+                </h3>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
@@ -171,15 +172,16 @@
                                                             Image
                                                             {{-- {!! fieldRequired() !!} --}}
                                                         </label>
-                                                        <input type="file" id="image"
-                                                            accept="image/png, image/jpeg" name="image"
-                                                            class="form-control"
+                                                        <input type="file" id="image" accept="image/png, image/jpeg"
+                                                            name="image" class="form-control"
                                                             value="{{ isset($User) ? $User->image : old('image') }}">
                                                         @if (isset($User))
                                                             @if (isset($User))
-                                                                <img src="{{ asset('images/serviceadvisory') . '/' . $User->image }}"
-                                                                    alt="image" class="brand-image"
-                                                                    style="width:100px;hieght:100px">
+                                                                @if (file_exists('images/serviceadvisory/' . $User->image))
+                                                                    <img src="{{ asset('images/serviceadvisory') . '/' . $User->image }}"
+                                                                        alt="image" class="brand-image"
+                                                                        style="width:100px;hieght:100px">
+                                                                @endif
                                                             @else
                                                                 <img src="{{ asset('images/no-image-icon-6.png') }}"
                                                                     alt="image" class="brand-image"
@@ -187,8 +189,7 @@
                                                             @endif
                                                         @endif
                                                         @if ($errors->has('image'))
-                                                            <span
-                                                                class="alert-danger">{{ $errors->first('image') }}</span>
+                                                            <span class="alert-danger">{{ $errors->first('image') }}</span>
                                                         @endif
                                                     </div>
                                                 </div>
@@ -198,7 +199,7 @@
                                                             <label>Admin User List</label>
                                                             <select class="form-control select2" name="admin_user_id"
                                                                 style="width: 100%;">
-                                                                <option value="">-Select Driver-</option>
+                                                                <option value="">-Select Admin-</option>
                                                                 @foreach (getAdminList() as $adminUser)
                                                                     @if (old('admin_user_id'))
                                                                         <option value="{{ $adminUser->id }}"

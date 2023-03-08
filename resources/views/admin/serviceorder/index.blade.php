@@ -10,7 +10,7 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('/')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('/') }}">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Service Order</li>
                         </ol>
                     </nav>
@@ -35,6 +35,12 @@
     <!-- ============================================================== -->
     <!-- Container fluid  -->
     <!-- ============================================================== -->
+
+    <input type="hidden" name="serviceorderurl" id="serviceorderurl" value="{{ route('serviceorder') }}" />
+    <input type="hidden" name="assigndriver" id="assigndriver" value="{{ auth()->user()->user_type }}" />
+    <input type="hidden" name="admindeletedeleteurl" id="admindeletedeleteurl"
+        value="{{ route('delete-serviceorder') }}" />
+    <input type="hidden" name="_token" id="token" value="{{ csrf_token() }}">
     <div class="container-fluid">
         <!-- ============================================================== -->
         <!-- Start Page Content -->
@@ -44,7 +50,50 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <table id="example1" class="table table-bordered table-striped">
+                        <div class="row g-6">
+                            <div class="col-md-6">
+                                <select class="form-control address_option addressOptionFilterBtn" name="address_option"
+                                    id="address_option" style="width: 100%;">
+                                    <option value=" ">Select Address Option</option>
+                                    @foreach (getAddressOption() as $addressOption)
+                                        @if (old('address_option'))
+                                            <option value="{{ $addressOption['id'] }}"
+                                                {{ old('address_option') == $addressOption['id'] ? 'selected' : "'" }}>
+                                                {{ $addressOption['name'] }}
+                                            </option>
+                                        @else
+                                            <?php $idAddressOption = isset($Order) ? $Order->address_option : null; ?>
+                                            <option value="{{ $addressOption['id'] }}"
+                                                @if ($addressOption['id'] == $idAddressOption) selected @endif>
+                                                {{ $addressOption['name'] }}
+                                            </option>
+                                        @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row g-4">
+                            <div class="col-md-3">
+                                <input type="date" class="form-control" name="serviceOrderStartDate"
+                                    id="serviceOrderStartDate" />
+                            </div>
+                            <div class="col-md-3">
+                                <input type="date" class="form-control" name="serviceOrderEndDate"
+                                    id="serviceOrderEndDate" />
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" id="serviceOrderFilterBtn" class="btn btn-primary float-left custombtn" >
+                                    Filter</li>
+                                </button>
+                            </div>
+                            <div class="col-md-1">
+                                <button type="reset" id="serviceOrderResetBtn" class="btn btn-info float-left custombtn">
+                                    Reset</li>
+                                </button>
+                            </div>
+                        </div>
+                        <table class="serviceorderdatatable table table-bordered table-striped">
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -55,15 +104,17 @@
                                     <th>Vehicle Number</th>
                                     <th>Model</th>
                                     <th>Varient</th>
-                                    @if (auth()->user()->user_type == '1')
+                                    @if (auth()->user()->user_type == 1 || auth()->user()->user_type == 2)
                                         <th>Assign Driver</th>
                                     @endif
+                                    <th>Create Date</th>
+                                    <th>Address Option</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <?php $no = 1; ?>
-                                @foreach ($Order as $value)
+                                {{--   @foreach ($Order as $value)
                                     <tr>
                                         <td>{{ $no++ }}</td>
                                         <td>{{ $value->full_name }} </td>
@@ -80,11 +131,9 @@
                                         @if (auth()->user()->user_type == '1')
                                             <td>
                                                 @if ($value->driver_id == null)
-                                                    <span class="badge badge-primary">New
-                                                        Order</span>
+                                                    <span class="badge badge-primary">New Order</span>
                                                 @else
-                                                    <span
-                                                        class="badge badge-success">{{ $value->DriverUsers ? $value->DriverUsers->name : '' }}</span>
+                                                    <span class="badge badge-success">{{ $value->DriverUsers ? $value->DriverUsers->name : '' }}</span>
                                                 @endif
                                             </td>
                                         @endif
@@ -105,7 +154,7 @@
                                             </form>
                                         </td>
                                     </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>

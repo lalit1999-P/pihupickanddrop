@@ -12,11 +12,13 @@ use App\Exports\ExportOrder;
 use App\Models\Dropoffimage;
 use Exception;
 use App\Models\Location;
+use App\Models\ServiceInvoice;
 use App\Models\Pickupimage;
 use Maatwebsite\Excel\Concerns\ToArray;
 use SebastianBergmann\CodeCoverage\Driver\Driver;
 use PDF;
 use Illuminate\Support\Carbon;
+use DataTables;
 
 class ServiceOrderController extends Controller
 {
@@ -25,22 +27,84 @@ class ServiceOrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function view()
+    public function view(Request $request)
     {
-        $userType = auth()->user()->user_type;
-        // if user is admin
-        if ($userType == 1) {
-            $data = Order::with(['Users', 'Category', 'DriverUsers', 'vehicleModel', 'Varient'])->latest()->get();
-        } elseif ($userType == 2) {
-            $userId = User::where("user_type", 3)->where('user_id', auth()->user()->id)->pluck('id')->toArray();
-            array_push($userId, auth()->user()->id);
-            $userIds = $userId;
-            $data = Order::whereIn("user_id", $userIds)->with(['Users', 'Category', 'DriverUsers'])->latest()->get();
-        } else {
-            $data = Order::where("user_id", auth()->user()->id)->with(['Users', 'Category', 'DriverUsers'])->latest()->get();
-        }
+        \DB::enableQueryLog(); // Enable query log
 
-        return view('admin.serviceorder.index')->with('Order', $data);
+        if ($request->ajax()) {
+            $userType = auth()->user()->user_type;
+            // if user is admin
+            if ($userType == 1) {
+                $data = Order::with(['Users', 'Category', 'DriverUsers', 'vehicleModel', 'Varient']);
+            } elseif ($userType == 2) {
+                $userId = User::where("user_type", 3)->where('user_id', auth()->user()->id)->pluck('id')->toArray();
+                array_push($userId, auth()->user()->id);
+                $userIds = $userId;
+                $data = Order::whereIn("user_id", $userIds)->with(['Users', 'Category', 'DriverUsers']);
+            } else {
+                $data = Order::where("user_id", auth()->user()->id)->with(['Users', 'Category', 'DriverUsers']);
+            }
+            // dump((int)$request->address_option);
+            // dd($request->all());
+            $startDate =  isset($request->start_date) ? date("Y-m-d", strtotime($request->start_date)) . ' 00:00:01' : null;
+            $endDate =  isset($request->end_date) ? date("Y-m-d", strtotime($request->end_date)) . ' 23:59:59' : null;
+            $addressOption = isset($request->address_option) ? (int)$request->address_option : 0;
+            if (!empty($startDate) && !empty($endDate)) {
+                $data = $data->whereBetween('created_at', [$startDate, $endDate]);
+            }
+            if (!empty($addressOption)) {
+                $data = $data->where('address_option', $addressOption); //->toSql();
+                // dump('in query');
+                // dd($data);
+            }
+
+            $data = $data->latest()->get();
+            //  dd($data);
+            //  dd(\DB::getQueryLog()); // Show results of log
+
+            //dd($data);
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->editColumn('created_at', function ($request) {
+                    $date = date("M d Y, h:i a", strtotime($request->created_at));
+                    return $request->created_at = $date;
+                })
+                ->editColumn('status', function ($request) {
+                    if ($request->driver_id == null) {
+                        return '<span class="badge badge-primary">New Order</span>';
+                    } else {
+                        $name = $request->DriverUsers ? $request->DriverUsers->name : '';
+                        return   '<span class="badge badge-success">' . $name . '</span>';
+                    }
+                })
+                ->addColumn('vehicle_variant', function ($row) {
+                    return $row->Varient ? $row->Varient->vehicle_variant : '';
+                })
+                ->addColumn('address_option', function ($row) {
+                    if ($row->address_option) {
+                        $addressOption = searchForAddressOption($row->address_option, getAddressOption());
+                        if ($addressOption['id'] == $row->address_option) {
+                            return   '<span class="badge badge-success">' . $addressOption['name'] . '</span>';
+                        }
+                    } else {
+                        return   '<span class="badge badge-primary">No Address Option </span>';
+                    }
+                })
+                ->addColumn('vehicle_model', function ($row) {
+                    return isset($row->vehicleModel) ? $row->vehicleModel->vehicle_model : '';
+                })
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '';
+                    $actionBtn .= '<a href="' . route('edit-serviceorder', $row->id) . '" data-id="' . $row->id . '" class="edit btn btn-info  btn-sm show_confirm"><i class="fas fa-pencil-alt"></i></a> <a href="javascript:void(0)" data-id="' . $row->id . '" class="delete btn btn-danger btn-sm btn-sm serviceOrderdeletebutton"><i class="fas fa-trash"></i></a>';
+                    if ($row->invoice_date != null && $row->payble_amount != null) {
+                        $actionBtn .= '<a href="' . route('view-invoice-serviceorder', $row->id) . '" class="btn btn-warning btn-sm"><i style="color: black" class="fas fa-file-pdf"></i></a>';
+                    }
+                    return $actionBtn;
+                })
+                ->rawColumns(['created_at', 'status', 'action', 'vehicle_variant', 'vehicle_model','address_option'])
+                ->make(true);
+        }
+        return view('admin.serviceorder.index');
     }
 
     public function index()
@@ -54,11 +118,12 @@ class ServiceOrderController extends Controller
      */
     public function create()
     {
-        //user_type 2 means driver
+        //user_type 4 means driver
         $DriverDeail =  User::where("user_type", 4)->get();
+        $serviceAdvisory =  User::where("user_type", 5)->get();
         $vehicleModel = VehicleModel::latest()->get();
         $Location = Location::latest()->get();
-        return view('admin.serviceorder.add', ["vehicleModel" => $vehicleModel, "DriverDeail" => $DriverDeail, "Location" => $Location]);
+        return view('admin.serviceorder.add', ["vehicleModel" => $vehicleModel, "DriverDeail" => $DriverDeail, "serviceAdvisorys" => $serviceAdvisory, "Location" => $Location]);
     }
 
     /**
@@ -83,9 +148,9 @@ class ServiceOrderController extends Controller
                 //'drop_address'     => 'required|max:250',
                 'location_id'     => 'required',
                 //'payment_method' => 'required',
-                'invoice_date'     => 'nullable|date',
+                // 'invoice_date'     => 'nullable|date',
                 'service_detail'     => 'nullable|max:150',
-                'price'     => 'nullable|regex:/^[0-9.]+$/',
+                // 'price'     => 'nullable|regex:/^[0-9.]+$/',
                 //'pick_up_time'     => 'required',
                 // 'service_type' => 'required'
             ],
@@ -107,8 +172,25 @@ class ServiceOrderController extends Controller
         if (!isset($request->id)) {
             $data['assign_status'] = 0;
         }
+        $Order = Order::updateOrCreate(['id' => $request->id], $data);
+        if (isset($request->id)) {
 
-        Order::updateOrCreate(['id' => $request->id], $data);
+            $ServiceInvoiceDelete = ServiceInvoice::where('service_order_id', $request->id)->first();
+            if ($ServiceInvoiceDelete) {
+                ServiceInvoice::where('service_order_id', $request->id)->delete();
+            }
+            foreach ($request->addMoreInputFields as $key => $value) {
+                $value['service_order_id'] = $Order->id;
+                if (isset($value['invoice_image'])) {
+                    $fileUploads = fileUpload('invoice_image', $value['invoice_image']);
+                    $value['invoice_image'] = $fileUploads;
+                } else {
+                    $value['invoice_image'] = isset($value['old_invoice_image']) ? $value['old_invoice_image'] : null;
+                }
+                ServiceInvoice::create($value);
+            }
+            //exit;
+        }
         if ($request->id) {
             toastr()->success('Successfully Update Service Order!', 'Update Service Order');
         } else {
@@ -127,7 +209,8 @@ class ServiceOrderController extends Controller
     {
         // dd($id);
         try {
-            $Order = Order::where('id', $id)->firstOrFail();
+            $Order = Order::where('id', $id)->with('ServiceInvoice')->firstOrFail();
+            //  dd($Order);
             $currentUserType = auth()->user()->user_type;
             $isEdit = false;
             if ($currentUserType == 1 or $currentUserType == 2) {
@@ -146,7 +229,9 @@ class ServiceOrderController extends Controller
                 // dd($vehicleVarient);
                 $DriverDeail = User::where("user_type", 4)->get();
                 $Location = Location::latest()->get();
-                return view('admin.serviceorder.add')->with('Order', $Order)->with("dropOfImages", $dropOfImages)->with("pickUpImages", $pickUpImages)->with("vehicleModel", $vehicleModel)->with('Location', $Location)->with("vehicleVarient", $vehicleVarient)->with("DriverDeail", $DriverDeail);
+                $ServiceInvoice = ServiceInvoice::where('service_order_id', $Order->id)->get();
+                $serviceAdvisory =  User::where("user_type", 5)->get();
+                return view('admin.serviceorder.add')->with('Order', $Order)->with("serviceAdvisorys", $serviceAdvisory)->with("ServiceInvoice", $ServiceInvoice)->with("dropOfImages", $dropOfImages)->with("pickUpImages", $pickUpImages)->with("vehicleModel", $vehicleModel)->with('Location', $Location)->with("vehicleVarient", $vehicleVarient)->with("DriverDeail", $DriverDeail);
             } else {
                 toastr()->error('You have no permission! Edit', 'No - Permission');
                 return to_route("serviceorder");
@@ -164,17 +249,22 @@ class ServiceOrderController extends Controller
         return view('admin.serviceorder.view-invoice')->with('invoicedata', $data);
     }
 
+    public function invoiceImageUpload(Request $request)
+    {
+        return fileUpload('invoice_image', $request->file);
+    }
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        Order::find($id)->delete();
+        Order::find($request->id)->delete();
 
-        toastr()->success('Successfully Delete Service Order!', 'Delete Service Order');
+        // toastr()->success('Successfully Delete Service Order!', 'Delete Service Order');
         return back();
     }
     public function export(Request $request)

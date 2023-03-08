@@ -10,7 +10,7 @@
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="{{route('/')}}">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ route('/') }}">Home</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Admin</li>
                         </ol>
                     </nav>
@@ -46,27 +46,25 @@
             <div class="col-sm-12">
                 <div class="card">
                     <div class="card-body">
-                        <div class="col-md-6">
-                            <div class="input-group mb-3">
+                        <div class="row g-4">
+                            <div class="col-md-3">
                                 <input type="date" class="form-control" name="adminStartDate" id="adminStartDate" />
+
+                            </div>
+                            <div class="col-md-3">
                                 <input type="date" class="form-control" name="adminEndDate" id="adminEndDate" />
-                                <button type="submit" id="adminFilterBtn" class="btn btn-primary float-left">
+
+                            </div>
+                            <div class="col-md-1">
+                                <button type="submit" id="adminFilterBtn" class="btn btn-primary custombtn float-left">
                                     Filter</li>
                                 </button>
-                                <button type="reset" id="adminResetBtn" class="btn btn-info float-left">
+                            </div>
+                            <div class="col-md-1">
+                                <button type="reset" id="adminResetBtn" class="btn btn-info custombtn float-left">
                                     Reset</li>
                                 </button>
                             </div>
-                            {{-- <div class="form-group">
-                                <input type="date" class="form-control" name="adminStartDate" id="adminStartDate" />
-                                <input type="date" class="form-control" name="adminEndDate" id="adminEndDate" />
-                                <button type="submit" id="adminFilterBtn" class="btn btn-primary float-left">
-                                    Filter</li>
-                                </button>
-                                <button type="reset" id="adminResetBtn" class="btn btn-info float-left">
-                                    Reset</li>
-                                </button>
-                            </div> --}}
                         </div>
                         <table id="admin" class="admin table table-bordered table-striped">
                             <thead>

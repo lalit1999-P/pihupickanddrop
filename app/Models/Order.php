@@ -15,7 +15,7 @@ class Order extends Model
         'id', 'user_id', 'pick_up_date', 'pick_up_time', 'drop_off_date', 'drop_off_time', 'driver_id', 'location_id', 'price',
         'payble_amount', 'category_id', 'reg_number', 'mobile_no', 'vehicle_model', 'vehicle_variant', 'full_name',
         'sur_name', 'email_id', 'address', 'pickup_address', 'drop_address', 'street_name', 'houser_no', 'landmark', 'service_date',
-        'service_detail', 'service_type', 'payment_method', 'invoice_date', 'assign_status', 'created_at', 'updated_at',
+        'service_detail', 'service_type', 'payment_method', 'invoice_date', 'assign_status', 'created_at', 'updated_at', 'pickup_pincode', 'drop_pincode', 'dealer_name','address_option', 'service_advisory_id', 'dealer_name'
     ];
 
     public function Users()
@@ -50,5 +50,9 @@ class Order extends Model
     public function dropOffImage()
     {
         return $this->hasOne(Dropoffimage::class, 'order_id', 'id');
+    }
+    public function ServiceInvoice()
+    {
+        return $this->hasMany(ServiceInvoice::class, 'service_order_id', 'id');
     }
 }

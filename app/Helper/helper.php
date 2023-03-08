@@ -36,3 +36,95 @@ function getAdminList()
     $User = User::where('user_type', 2)->get();
     return $User;
 }
+function getServiceType()
+{
+    return [
+        [
+            'id' => 1,
+            'name' => 'Free Service'
+        ],
+        [
+            'id' => 2,
+            'name' => 'Paid Service'
+        ], [
+            'id' => 3,
+            'name' => 'Accidential'
+        ], [
+            'id' => 4,
+            'name' => 'Running Repair'
+        ], [
+            'id' => 5,
+            'name' => 'Used Car Pickup'
+        ], [
+            'id' => 6,
+            'name' => 'New Vehicle Pickup'
+        ]
+    ];
+}
+function getPaymentMethod()
+{
+    return [
+        [
+            'id' => 1,
+            'name' => 'Payment on delivery'
+        ],
+        [
+            'id' => 2,
+            'name' => 'Online Payment'
+        ]
+    ];
+}
+function getAddressOption()
+{
+    return [
+        [
+            'id' => 1,
+            'name' => 'Pickup'
+        ],
+        [
+            'id' => 2,
+            'name' => 'Drop'
+        ],
+        [
+            'id' => 3,
+            'name' => 'Both'
+        ]
+    ];
+}
+function searchForAddressOption($id, $array)
+{
+    foreach ($array as $key => $val) {
+        if ($val['id'] === $id) {
+            return $val;
+        }
+    }
+    return null;
+}
+function smsGateWay($param)
+{
+    $mobile=$param['mobileList'];
+    $message=$param['message'];
+    $apikey='';
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => 'https://www.smsgateway.center/SMSApi/rest/send',
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'POST',
+        CURLOPT_POSTFIELDS => 'senderId=SMSGAT&sendMethod=simpleMsg&msgType=text&mobile=$mobile&msg=$message&duplicateCheck=true&format=json',
+        CURLOPT_HTTPHEADER => array(
+            'apiKey:'.$apikey,
+            'Content-Type: application/x-www-form-urlencoded'
+        ),
+    ));
+
+    $response = curl_exec($curl);
+
+    curl_close($curl);
+    echo $response;
+}

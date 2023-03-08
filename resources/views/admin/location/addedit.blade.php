@@ -95,7 +95,7 @@
                                                             <label>Admin User List</label>
                                                             <select class="form-control select2" name="admin_user_id"
                                                                 style="width: 100%;">
-                                                                <option value="">-Select Driver-</option>
+                                                                <option value="">-Select Admin-</option>
                                                                 @foreach (getAdminList() as $adminUser)
                                                                     @if (old('admin_user_id'))
                                                                         <option value="{{ $adminUser->id }}"

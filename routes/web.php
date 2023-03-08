@@ -51,11 +51,12 @@ Route::middleware(['auth'])->group(function () {
         Route::get('create-serviceorder', [ServiceOrderController::class, 'create'])->name('create-serviceorder');
         Route::get('edit-serviceorder/{id}', [ServiceOrderController::class, 'edit'])->name('edit-serviceorder');
         Route::post('store-serviceorder', [ServiceOrderController::class, 'store'])->name('store-serviceorder');
-        Route::delete('delete-serviceorder/{id}', [ServiceOrderController::class, 'destroy'])->name('delete-serviceorder');
+        Route::post('delete-serviceorder', [ServiceOrderController::class, 'destroy'])->name('delete-serviceorder');
         Route::get('view-invoice-serviceorder/{id}', [ServiceOrderController::class, 'viewinvoice'])->name('view-invoice-serviceorder');
         Route::get('/export-serviceorder', [ServiceOrderController::class, 'export'])->name('export-serviceorder');
         Route::get('generate-invoice-pdf/{id}', [ServiceOrderController::class, 'generateInvoicePDF'])->name('generate-invoice-pdf');
         Route::post('save-invoice', [ServiceOrderController::class, 'saveinvoice'])->name('save-invoice');
+        Route::post('invoice-image-upload', [ServiceOrderController::class, 'invoiceImageUpload'])->name('invoice-image-upload');
     });
     Route::middleware('role:ROLE_ADMIN|ROLE_SUPERADMIN')->group(function () {
 

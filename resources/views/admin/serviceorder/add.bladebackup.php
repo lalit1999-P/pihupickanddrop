@@ -34,7 +34,6 @@
     <!-- Container fluid  -->
     <!-- ============================================================== -->
     <div class="container-fluid">
-        {{-- <link href="{{ asset('css/zoominzoomout.css') }}" rel="stylesheet" /> --}}
         <!-- ============================================================== -->
         <!-- Start Page Content -->
         <!-- ============================================================== -->
@@ -177,7 +176,7 @@
                                                                     {{ $adminUser->name }}
                                                                 </option>
                                                             @else
-                                                                <?php $idAdminUser = isset($Order) ? $Order->user_id : null; ?>
+                                                                <?php $idAdminUser = isset($User) ? $User->user_id : null; ?>
                                                                 <option value="{{ $adminUser->id }}"
                                                                     @if ($adminUser->id == $idAdminUser) selected @endif>
                                                                     {{ $adminUser->name }}
@@ -204,11 +203,11 @@
                                                         @foreach ($serviceAdvisorys as $serviceAdvisory)
                                                             @if (old('service_advisory_id'))
                                                                 <option value="{{ $serviceAdvisory->id }}"
-                                                                    {{ old('service_advisory_id') == $serviceAdvisory->service_advisory_id ? 'selected' : "'" }}>
+                                                                    {{ old('service_advisory_id') == $serviceAdvisory->id ? 'selected' : "'" }}>
                                                                     {{ $serviceAdvisory->name }}
                                                                 </option>
                                                             @else
-                                                                <?php $idServiceAdvisory = isset($Order) ? $Order->service_advisory_id : null; ?>
+                                                                <?php $idServiceAdvisory = isset($Order) ? $Order->user_id : null; ?>
                                                                 <option value="{{ $serviceAdvisory->id }}"
                                                                     @if ($serviceAdvisory->id == $idServiceAdvisory) selected @endif>
                                                                     {{ $serviceAdvisory->name }}
@@ -384,7 +383,7 @@
                                                             {{ $addressOption['name'] }}
                                                         </option>
                                                     @else
-                                                        <?php $idAddressOption = isset($Order) ? $Order->address_option : null; ?>
+                                                        <?php $idAddressOption = isset($Order) ? $Order->service_type : null; ?>
                                                         <option value="{{ $addressOption['id'] }}"
                                                             @if ($addressOption['id'] == $idAddressOption) selected @endif>
                                                             {{ $addressOption['name'] }}
@@ -493,8 +492,8 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Pickup Location Address </label>
-                                                <input type="text" name="pickup_address" id="pickup_address" class="form-control" value="{{ isset($Order->pickup_address) ? $Order->pickup_address : old('pickup_address') }}">
-                                                {{-- <textarea style="margin-top:16px " type="text" id="pickup_address" name="pickup_address" > {{ isset($Order) ? $Order->pickup_address : '' }}</textarea> --}}
+                                                {{-- <input type="text" name="pickup_address" id="pickup_address"> --}}
+                                                <textarea style="margin-top:16px " type="text" id="pickup_address" name="pickup_address" class="form-control"> {{ isset($Order) ? $Order->pickup_address : '' }}</textarea>
                                                 @if ($errors->has('pickup_address'))
                                                     <span
                                                         class="alert-danger">{{ $errors->first('pickup_address') }}</span>
@@ -511,7 +510,7 @@
                                                 <label>Pickup Pincode </label>
                                                 <input type="number" id="pickup_pincode" name="pickup_pincode"
                                                     class="form-control"
-                                                    value="{{ isset($Order->pickup_pincode) ? $Order->pickup_pincode : old('pickup_pincode') }}">
+                                                    value="{{ isset($Order) ? $Order->pickup_pincode : old('pickup_pincode') }}">
                                                 @if ($errors->has('pickup_pincode'))
                                                     <span
                                                         class="alert-danger">{{ $errors->first('pickup_pincode') }}</span>
@@ -528,7 +527,7 @@
                                                 <label>Drop off Date</label>
                                                 <input type="date" id="drop_off_date" name="drop_off_date"
                                                     class="form-control"
-                                                    value="{{ isset($Order->drop_off_date) ? $Order->drop_off_date : old('drop_off_date') }}">
+                                                    value="{{ isset($Order) ? $Order->drop_off_date : old('drop_off_date') }}">
                                                 @if ($errors->has('drop_off_date'))
                                                     <span
                                                         class="alert-danger">{{ $errors->first('drop_off_date') }}</span>
@@ -550,7 +549,7 @@
                                                                 {{ $timeslot }}
                                                             </option>
                                                         @else
-                                                            <?php $id = isset($Order->drop_off_time) ? $Order->drop_off_time : null; ?>
+                                                            <?php $id = isset($Order) ? $Order->drop_off_time : null; ?>
                                                             <option value="{{ $timeslot }}"
                                                                 @if ($timeslot == $id) selected @endif>
                                                                 {{ $timeslot }}
@@ -569,8 +568,7 @@
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <label>Drop Location Address </label>
-                                                <input type="text" name="drop_address" id="drop_address" class="form-control" value="{{ isset($Order->drop_address) ? $Order->drop_address : old('drop_address') }}">
-                                                {{-- <textarea type="text" id="drop_address" name="drop_address" class="form-control"> {{ isset($Order->drop_address) ? $Order->drop_address : old('drop_address') }}</textarea> --}}
+                                                <textarea type="text" id="drop_address" name="drop_address" class="form-control"> {{ isset($Order) ? $Order->drop_address : '' }}</textarea>
                                                 @if ($errors->has('drop_address'))
                                                     <span class="alert-danger">{{ $errors->first('drop_address') }}</span>
                                                 @endif
@@ -588,16 +586,16 @@
                                             </div>
                                         </div>
                                     </div>
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label>Service Detail </label>
-                                            <textarea type="text" id="service_detail" name="service_detail" class="form-control"> {{ isset($Order) ? $Order->service_detail : old('service_detail') }}</textarea>
-                                            @if ($errors->has('service_detail'))
-                                                <span class="alert-danger">{{ $errors->first('service_detail') }}</span>
-                                            @endif
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Service Detail </label>
+                                                <textarea type="text" id="service_detail" name="service_detail" class="form-control"> {{ isset($Order) ? $Order->service_detail : '' }}</textarea>
+                                                @if ($errors->has('service_detail'))
+                                                    <span
+                                                        class="alert-danger">{{ $errors->first('service_detail') }}</span>
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -619,10 +617,10 @@
                                             <th scope="col" width="250">Invoice Image</th>
                                             <th scope="col" width="250"></th>
                                         </tr>
-                                        <?php $ServiceInvoiceIn = isset($Order->ServiceInvoice) ? count($Order->ServiceInvoice) : null; ?>
-                                        @if (!empty($ServiceInvoiceIn))
+
+                                        @if (isset($ServiceInvoice->ServiceInvoice))
                                             <?php $i = 0; ?>
-                                            @foreach ($Order->ServiceInvoice as $service_invoice)
+                                            @foreach ($ServiceInvoice as $service_invoice)
                                                 <tr>
                                                     <td>
                                                         <div class="form-group"> <input type="date"
@@ -650,15 +648,16 @@
                                                     <td>
                                                         <div class="form-group"><input type="file"
                                                                 value="{{ $service_invoice->invoice_image }}"
-                                                                class="form-control"
+                                                                id="fileimage" class="form-control invoiceImageUploads"
                                                                 name="addMoreInputFields[{{ $i }}][invoice_image]" />
-                                                            <input type="hidden"
+                                                            <input type="hidden" class="old_invoice_image"
                                                                 value="{{ $service_invoice->invoice_image }}"
                                                                 name="addMoreInputFields[{{ $i }}][old_invoice_image]" />
                                                             @if (file_exists('images/invoice_image/' . $service_invoice->invoice_image))
-                                                                <img src="{{ asset('images/invoice_image') . '/' . $service_invoice->invoice_image }}"
-                                                                    alt="image" class="brand-image" id="geeks"
-                                                                    style="width:70px;hieght:70px">
+                                                                <span class="newinvoiceimage"> <img
+                                                                        src="{{ asset('images/invoice_image') . '/' . $service_invoice->invoice_image }}"
+                                                                        alt="image" class="brand-image"
+                                                                        style="width:70px;hieght:70px"> </span>
                                                             @endif
                                                         </div>
                                                     </td>
@@ -692,9 +691,13 @@
                                                     </div>
                                                 </td>
                                                 <td>
-                                                    <div class="form-group"><input type="file" class="form-control"
+                                                    <div class="form-group invoiceImageUploads"><input type="file"
+                                                            class="form-control"
                                                             name="addMoreInputFields[0][invoice_image]" />
                                                     </div>
+                                                    <input type="hidden" class="old_invoice_image"
+                                                        name="addMoreInputFields[0][old_invoice_image]" />
+                                                    <span class="newinvoiceimage"></span>
                                                 </td>
                                                 <td><button type="button" name="add" id="add12"
                                                         class="btn btn-success">Add More</button></td>
@@ -845,10 +848,6 @@
     </div>
 
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyC_xH3RSCkoE-6EEvQ0SmvBUFsQOqpYQ9I">
-    </script>
-
     <script>
         function getVarient(e) {
             var varient_id = e.value;
@@ -919,6 +918,8 @@
             }
 
         });
+
+
         $(document).on("click", ".same_location", function() {
             if ($(this).prop("checked")) {
                 $("#drop_address").val($('#pickup_address').val())
@@ -946,45 +947,69 @@
                     i +
                     '][invoice_amount]" placeholder="Enter invoice Amount" /></div></td><td><div class="form-group"> <input type="text" class="form-control" name="addMoreInputFields[' +
                     i +
-                    '][invoice_payble_amount]" placeholder="Enter invoice Payble Amount"/></div></td><td><div class="form-group"> <input type="file" class="form-control" name="addMoreInputFields[' +
+                    '][invoice_payble_amount]" placeholder="Enter invoice Payble Amount"/></div></td><td><div class="form-group"> <input type="file" class="form-control invoiceImageUploads" name="addMoreInputFields[' +
                     i +
-                    '][invoice_image]" placeholder="Enter invoice Invoice Image"/></div></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>'
+                    '][invoice_image]" placeholder="Enter invoice Invoice Image"/><span class="newinvoiceimage"></span><input type="hidden" class="old_invoice_image"name="addMoreInputFields[' +
+                    i +
+                    '][old_invoice_image]"/></div></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>'
                 );
                 initializeSelect2()
             });
             $(document).on('click', '.remove-tr', function() {
                 $(this).parents('tr').remove();
             });
-
             $(document).ready(function() {
                 initializeSelect2()
             });
         });
-        $(document).ready(function() {
-            var searchInput = 'pickup_address';
-            var autocomplete;
-            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-                types: ['geocode'],
-                /*componentRestrictions: {
-                 country: "USA"
-                }*/
-            });
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                var near_place = autocomplete.getPlace();
-            });
-        });
-        $(document).ready(function() {
-            var searchInput = 'drop_address';
-            var autocomplete;
-            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-                types: ['geocode'],
-                /*componentRestrictions: {
-                 country: "USA"
-                }*/
-            });
-            google.maps.event.addListener(autocomplete, 'place_changed', function() {
-                var near_place = autocomplete.getPlace();
+        $('.invoiceImageUploads').on('change', function(event) {
+            var form_data = new FormData();
+            form_data.append("file", event.target.files[0]);
+            form_data.append("_token", "{{ csrf_token() }}");
+            console.log(event.target.files[0], '----------------event.target.files[0]-----------');
+            //alert(formData);
+            $.ajax({
+                url: '{{ route('invoice-image-upload') }}',
+                type: 'POST',
+                data: form_data,
+                success: function(data) {
+                    var ImageUrl = "{{ asset('images/invoice_image') }}" + '/' + data;
+                    console.log(ImageUrl, '-------------------ImageUrl------------------------');
+                    var html = '<img src="' + ImageUrl + '" style="width:70px;hieght:70px">';
+                    $('.newinvoiceimage').html(html);
+                   // event.val(data);
+                },
+                cache: false,
+                contentType: false,
+                processData: false
             });
         });
+    </script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU3tbbU51KdyChyOBId2O3CouWtiAOn6c&callback=initAutocomplete&libraries=places&v=weekly">
+    </script>
+    <script type="text/javascript">
+        const center = {
+            lat: 50.064192,
+            lng: -130.605469
+        };
+        // Create a bounding box with sides ~10km away from the center point
+        const defaultBounds = {
+            north: center.lat + 0.1,
+            south: center.lat - 0.1,
+            east: center.lng + 0.1,
+            west: center.lng - 0.1,
+        };
+        const input = document.getElementById("pickup_address");
+        const options = {
+            bounds: defaultBounds,
+            componentRestrictions: {
+                country: "us"
+            },
+            fields: ["address_components", "geometry", "icon", "name"],
+            strictBounds: false,
+            types: ["establishment"],
+        };
+        const autocomplete = new google.maps.places.Autocomplete(input, options);
     </script>
 @endsection
