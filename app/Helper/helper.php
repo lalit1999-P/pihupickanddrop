@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use App\sms\psmplSMSGatewayCenter;
 
 function fileUpload($path, $image)
 {
@@ -102,29 +103,15 @@ function searchForAddressOption($id, $array)
 }
 function smsGateWay($param)
 {
-    $mobile=$param['mobileList'];
-    $message=$param['message'];
-    $apikey='';
-    $curl = curl_init();
-
-    curl_setopt_array($curl, array(
-        CURLOPT_URL => 'https://www.smsgateway.center/SMSApi/rest/send',
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_ENCODING => '',
-        CURLOPT_MAXREDIRS => 10,
-        CURLOPT_TIMEOUT => 0,
-        CURLOPT_FOLLOWLOCATION => true,
-        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-        CURLOPT_CUSTOMREQUEST => 'POST',
-        CURLOPT_POSTFIELDS => 'senderId=SMSGAT&sendMethod=simpleMsg&msgType=text&mobile=$mobile&msg=$message&duplicateCheck=true&format=json',
-        CURLOPT_HTTPHEADER => array(
-            'apiKey:'.$apikey,
-            'Content-Type: application/x-www-form-urlencoded'
-        ),
-    ));
-
-    $response = curl_exec($curl);
-
-    curl_close($curl);
-    echo $response;
+    $Username = \Config::get('configvalue.SMSGETWAY_USERNAME');
+    $Password = \Config::get('configvalue.SMSGETWAY_PASSWORD');
+    $smsgatewaycenter = new psmplSMSGatewayCenter($Username, $Password); //Your username and password
+    $smsgatewaycenter->setMobile($param['mobileList']); //Your recipient mobile number
+    $smsgatewaycenter->setMsg($param['message']); // Your message
+    $smsgatewaycenter->setMsgType(psmplSMSGatewayCenter::MSG_TYPE_TEXT); //Change to MSG_TYPE_UNICODE for Unicode message
+    $smsgatewaycenter->setSenderId("SMSGAT"); // Your approved sender anem
+    $smsgatewaycenter->setSendMethod(psmplSMSGatewayCenter::METHOD_SIMPLE_MSG);
+    $smsgatewaycenter->setTestMessage("false"); //set this to true to test
+    $smsgatewaycenter->sendSMS(psmplSMSGatewayCenter::SMSAPI, 'send');
+    return $smsgatewaycenter->getResponse();
 }

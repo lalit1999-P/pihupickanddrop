@@ -192,6 +192,12 @@ class ServiceOrderController extends Controller
             }
             //exit;
         }
+        $param = [
+            "mobileList" => '917990379719',
+            "message" => 'This SMS is my first sms'
+        ];
+        //$smsGateWayResponce = smsGateWay($param);
+        // dd($smsGateWayResponce);
         if ($request->id) {
             toastr()->success('Successfully Update Service Order!', 'Update Service Order');
         } else {
