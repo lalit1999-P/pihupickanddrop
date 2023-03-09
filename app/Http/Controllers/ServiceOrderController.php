@@ -101,7 +101,7 @@ class ServiceOrderController extends Controller
                     }
                     return $actionBtn;
                 })
-                ->rawColumns(['created_at', 'status', 'action', 'vehicle_variant', 'vehicle_model','address_option'])
+                ->rawColumns(['created_at', 'status', 'action', 'vehicle_variant', 'vehicle_model', 'address_option'])
                 ->make(true);
         }
         return view('admin.serviceorder.index');
@@ -123,7 +123,8 @@ class ServiceOrderController extends Controller
         $serviceAdvisory =  User::where("user_type", 5)->get();
         $vehicleModel = VehicleModel::latest()->get();
         $Location = Location::latest()->get();
-        return view('admin.serviceorder.add', ["vehicleModel" => $vehicleModel, "DriverDeail" => $DriverDeail, "serviceAdvisorys" => $serviceAdvisory, "Location" => $Location]);
+        $GOOGLEAPIKEY = \Config::get('configvalue.GOOGLE_API_KEY');
+        return view('admin.serviceorder.add', ["GOOGLEAPIKEY" => $GOOGLEAPIKEY, "vehicleModel" => $vehicleModel, "DriverDeail" => $DriverDeail, "serviceAdvisorys" => $serviceAdvisory, "Location" => $Location]);
     }
 
     /**
@@ -231,7 +232,9 @@ class ServiceOrderController extends Controller
                 $Location = Location::latest()->get();
                 $ServiceInvoice = ServiceInvoice::where('service_order_id', $Order->id)->get();
                 $serviceAdvisory =  User::where("user_type", 5)->get();
-                return view('admin.serviceorder.add')->with('Order', $Order)->with("serviceAdvisorys", $serviceAdvisory)->with("ServiceInvoice", $ServiceInvoice)->with("dropOfImages", $dropOfImages)->with("pickUpImages", $pickUpImages)->with("vehicleModel", $vehicleModel)->with('Location', $Location)->with("vehicleVarient", $vehicleVarient)->with("DriverDeail", $DriverDeail);
+                $GOOGLEAPIKEY = \Config::get('configvalue.GOOGLE_API_KEY');
+
+                return view('admin.serviceorder.add')->with("GOOGLEAPIKEY", $GOOGLEAPIKEY)->with('Order', $Order)->with("serviceAdvisorys", $serviceAdvisory)->with("ServiceInvoice", $ServiceInvoice)->with("dropOfImages", $dropOfImages)->with("pickUpImages", $pickUpImages)->with("vehicleModel", $vehicleModel)->with('Location', $Location)->with("vehicleVarient", $vehicleVarient)->with("DriverDeail", $DriverDeail);
             } else {
                 toastr()->error('You have no permission! Edit', 'No - Permission');
                 return to_route("serviceorder");

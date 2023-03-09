@@ -846,7 +846,7 @@
 
     <script src="{{ asset('plugins/jquery/jquery.min.js') }}"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyC_xH3RSCkoE-6EEvQ0SmvBUFsQOqpYQ9I">
+        src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key={{$GOOGLEAPIKEY}}">
     </script>
 
     <script>
