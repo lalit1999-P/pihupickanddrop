@@ -138,7 +138,7 @@ class OrderRepository
             $Orderlist['pickup_image_service_center'] = isset($pickup_image_service_center) ? $pickup_image_service_center : [];
             $drop_off_image = ServiceOrderImage::where('service_order_id', $Orderlist['id'])->select('image')->where('service_order_image_type', $actionStatus['DROP_IMAGE'])->get();
             $Orderlist['drop_off_image'] = isset($drop_off_image) ? $drop_off_image : [];
-            $Orderlist['image_base_url'] = 'https://pihupickanddrop.com/order_img/';
+            $Orderlist['image_base_url'] = 'https://pihupickanddrop.com/images/order_img/';
             $order[] = $Orderlist;
         }
         return $order;
@@ -155,7 +155,7 @@ class OrderRepository
         $Orderlists['pickup_image_service_center'] = isset($pickup_image_service_center) ? $pickup_image_service_center : [];
         $drop_off_image = ServiceOrderImage::where('service_order_id', $Orderlists->id)->select('image')->where('service_order_image_type', $actionStatus['DROP_IMAGE'])->get();
         $Orderlists['drop_off_image'] = isset($drop_off_image) ? $drop_off_image : [];
-        $Orderlists['image_base_url'] = 'https://pihupickanddrop.com/order_img/';
+        $Orderlists['image_base_url'] = 'https://pihupickanddrop.com/images/order_img/';
         return $Orderlists;
     }
 }
