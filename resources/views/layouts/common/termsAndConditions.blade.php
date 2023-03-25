@@ -19,60 +19,44 @@
 
     <div class="container">
         <div class="jumbotron">
-            <h2>About Us</h2>
-            <p>WHO WE ARE</p>
+            <h2>Terms and Conditions</h2>
 
-            <p> Pihu pickup & drop Services build from pihu accounting & finance firm. Pihu accounting & finance
-                established
-                in March 2020 to provide accounting, taxation, auditing, business services and solutions.</p>
+            <p>1. Although reasonable care of your vehicle is taken at all times, the Company / our service providers/
+                representatives
+                do not accept responsibility for any loss of valuables or normal wear and tear or minor damages like
+                scratches to the vehicle
+                during transit / or as a result of fire, flood, weather conditions, accidents or any other
+                circumstances beyond our
+                reasonable control.</p>
 
-            <p>We aim to provide a value added service to all our clients, and pride ourselves in supplying an honest,
-                reliable and high quality service. Accounting Services is a specialized Accounting and related services
-                firm
-                that distinguishes itself with a dynamic entrepreneurial mindset. We have an all encompassing management
-                style and incorporate a high level of technology into our daily activities. Our strong involvement with
-                various professional bodies ensures that we are continually ahead of a constantly changing
-                legislation.One
-                of our key pillars of success is that of our people. Continuous investment in our staff enables the
-                fulfillment of our strategic intent and ensures that we maintain our market position.Accounting Services
-                views our employees as our greatest assets and recognises that a major contributing factor to our
-                success is
-                our people.The firm prescribes to a culture of professionalism and service excellence and we recruit
-                individuals who embrace these core values. We believe in a passion for service and strive to create a
-                service culture that permeates our entire firm. We have receive some query from our clients is a
-                path-breaking concept aimed at revolutionizing the auto industry with a delivery model that is seamless
-                and
-                effective using technology. We solve the perennially existing problem of vehicle owners sacrificing
-                valuable
-                personal time in managing their vehicle needs. Good things happen when people get time, whether spending
-                with loved ones or executing their dreams. Opportunities appear, open up & become reality. now the
-                journey
-                start with the name of PIHU PICKUP & DROP SERVICES</p>
+            <p>2. You are requested to remove all personal objects like CDs, navigation cards, cellphones, key chains
+                and any other valuables from the vehicle before handing over the vehicle to our representative as we
+                shall not accept any responsibility for loss of the same.</p>
 
-            <p>What started as a way to pick up and drop vehicles for servicing has led to millions of moments of
-                passion
-                and joy as people around the India make the best use of precious time saved.</p>
+            <p>3. Any work is undertaken on the clear understanding that the payment of the invoice will be made in full
+                through any mode of digital payment offered by us before the handover of the vehicle key. Please avoid
+                paying in cash. The vehicle may be handed over to the service centre in case of failure of invoice
+                payment.</p>
 
-            <p>We deliver the quickest, safest and most innovative vehicle assistance service, products and technology
-                by
-                combining location-based services, real-time data, artificial intelligence and end-end connected
-                communication. We help achieve trust, transparency and convenience with a multitude of vehicle
-                assistance
-                services.</p>
+            <p> 4. Taxes as applicable, will be charged extra.
 
-            <h3>Our Lineage</h3>
+            <p> 5. Force majeure or delay in providing the service or special circumstances beyond our control will be
+                intimated and no claim/compensation can be claimed from the Company or its representatives in such
+                cases.</p>
 
-            <p>A group company of set up/devlop SOP automobiles dealers We have accounting experience 20 years. We have
-                work with the Brand (Hyundai/Harley/Mobis/
-                Honda/Jeep/MG/Toyota/Tata)</p>
+            <p> 6. You are requested to check the vehicle to your full satisfaction at the time of taking delivery. No
+                subsequent claims shall be entertained.</p>
 
-            <h3>Our Journey & Credentials</h3>
+            <p>7. In case of any dispute, the local civil court or consumer forum shall have the jurisdiction to
+                entertain the dispute.</p>
 
-            <p>“We have come a long way since 2021 in assisting vehicle owners and automotive businesses discover and
-                deliver convenience. We believe we are now ready to embark a new journey to make this happen to the
-                global
-                automotive market”
-            </p>
+            <p>8. Customer must have a valid insurance policy and registration certificate for the vehicle. A copy of
+                these documents should be made available at the time of pickup of the vehicle.</p>
+
+            <p>9. In case of any accident or material damage to the vehicle in transit due, we shall not be liable for
+                any damage to the vehicle or the consequences thereof. Any third party liability due to physical or
+                bodily injury will be claimed and settled under the Vehicle's third party insurance policy. </p>
+
         </div>
     </div>
 
