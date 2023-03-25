@@ -194,10 +194,10 @@ class ServiceOrderController extends Controller
         }
         $param = [
             "mobileList" => '917990379719',
-            "message" => 'This SMS is my first sms'
+            "message" => 'This is my first message with SMSGateway.Center'
         ];
-        //$smsGateWayResponce = smsGateWay($param);
-        // dd($smsGateWayResponce);
+          //   $smsGateWayResponce = smsGateWay($param);
+        //  dd($smsGateWayResponce);
         if ($request->id) {
             toastr()->success('Successfully Update Service Order!', 'Update Service Order');
         } else {

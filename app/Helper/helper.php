@@ -111,7 +111,7 @@ function smsGateWay($param)
     $smsgatewaycenter->setMsgType(psmplSMSGatewayCenter::MSG_TYPE_TEXT); //Change to MSG_TYPE_UNICODE for Unicode message
     $smsgatewaycenter->setSenderId("SMSGAT"); // Your approved sender anem
     $smsgatewaycenter->setSendMethod(psmplSMSGatewayCenter::METHOD_SIMPLE_MSG);
-    $smsgatewaycenter->setTestMessage("false"); //set this to true to test
+    $smsgatewaycenter->setTestMessage("true"); //set this to true to test
     $smsgatewaycenter->sendSMS(psmplSMSGatewayCenter::SMSAPI, 'send');
     return $smsgatewaycenter->getResponse();
 }

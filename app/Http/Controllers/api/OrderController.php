@@ -62,6 +62,20 @@ class OrderController extends Controller
         return $this->returnResponse();
     }
 
+    public function uploadsOrderImage(Request $request)
+    {
+        try {
+            $order_images = $this->orderRepository->uploadsOrderImages($request->all());
+            $this->status = Response::HTTP_OK;
+            $this->response["data"] =  $order_images;
+            $this->response["message"] = "Order images in inserted succesfully";
+        } catch (Exception $th) {
+            $this->response["message"] = $th->getMessage();
+        }
+        return $this->returnResponse();
+
+    }
+
     public function getVarient(Request $request)
     {
         try {

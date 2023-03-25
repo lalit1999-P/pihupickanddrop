@@ -10,6 +10,7 @@ use App\Models\Order;
 use App\Models\OrderImage;
 use App\Models\User;
 use App\Models\VehicleModel;
+use App\Models\ServiceOrderImage;
 use App\Models\VehicleVariant;
 use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
@@ -73,6 +74,33 @@ class OrderRepository
         } else {
             return false;
         }
+    }
+    public function uploadsOrderImages($request)
+    {
+        foreach ($request['img_url'] as $image) {
+            $img_name = fileUpload('order_img',  $image);
+            $orderImg[] = [
+                "service_order_id" => $request['order_id'],
+                "image" => $img_name,
+                "service_order_image_type" => $request['type'],
+            ];
+        }
+        ServiceOrderImage::insert($orderImg);
+        $OrderUpdate = Order::where('id', $request['order_id']);
+        $actionStatus = \Config::get('configvalue.ORDER_ACTION_STATUS');
+        //dd($actionStatus['PICKUP_IMAGE']);
+        if ($request['type'] == $actionStatus['PICKUP_IMAGE']) {
+            $OrderUpdate->update(["action_status" => $actionStatus['PICKUP_IMAGE']]);
+        } elseif ($request['type'] == $actionStatus['DROP_IMAGE_SERVICE_CENTER']) {
+            $OrderUpdate->update(["action_status" => $actionStatus['DROP_IMAGE_SERVICE_CENTER']]);
+        } elseif ($request['type'] == $actionStatus['PICKUP_IMAGE_SERVICE_CENTER']) {
+            $OrderUpdate->update(["action_status" => $actionStatus['PICKUP_IMAGE_SERVICE_CENTER']]);
+        } elseif ($request['type'] == $actionStatus['DROP_IMAGE']) {
+            $OrderUpdate->update(["action_status" => $actionStatus['DROP_IMAGE']]);
+        } elseif ($request['type'] == $actionStatus['PAYMENT']) {
+            $OrderUpdate->update(["action_status" => $actionStatus['PAYMENT']]);
+        }
+        return true;
     }
     public function getOrderHistory($assign_status)
     {

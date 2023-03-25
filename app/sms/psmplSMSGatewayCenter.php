@@ -1,6 +1,7 @@
 <?php
 
 namespace App\sms;
+use  Exception;
 /*
     |--------------------------------------------------------------------------
     | SMSGatewayCenter - Class file to Send SMS to SMSGateway.center API

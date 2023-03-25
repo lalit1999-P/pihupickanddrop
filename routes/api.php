@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Route::post('/place-order', [OrderController::class, 'placeOrder']);
     Route::post('/order-image', [OrderController::class, 'storeOrderImage']);
     // Route::post('/order-history', [OrderController::class, 'orderHistory']);
+    Route::post('/uploads-order-image', [OrderController::class, 'uploadsOrderImage']);
 
 
 
