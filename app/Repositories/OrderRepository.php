@@ -148,14 +148,15 @@ class OrderRepository
     {
         $actionStatus = \Config::get('configvalue.ORDER_ACTION_STATUS');
 
-        $Orderlists = Order::where('driver_id', auth()->user()->id)->where("id", $order_id)->with('DriverUsers', 'Varient', 'vehicleModel', 'location', 'pickupImage', 'dropOffImage')->first()->toArray();
-        $pickup_image = ServiceOrderImage::where('service_order_id', $Orderlists->id)->select('image')->where('service_order_image_type', $actionStatus['PICKUP_IMAGE'])->get();
+        $Orderlists = Order::where('driver_id', auth()->user()->id)->where("id", $order_id)->with('DriverUsers', 'Varient', 'vehicleModel', 'location')->first()->toArray();
+
+        $pickup_image = ServiceOrderImage::where('service_order_id', $Orderlists['id'])->select('image')->where('service_order_image_type', $actionStatus['PICKUP_IMAGE'])->get();
         $Orderlists['pickup_image'] = isset($pickup_image) ? $pickup_image : [];
-        $drop_image_service_center = ServiceOrderImage::where('service_order_id', $Orderlists->id)->select('image')->where('service_order_image_type', $actionStatus['DROP_IMAGE_SERVICE_CENTER'])->get();
+        $drop_image_service_center = ServiceOrderImage::where('service_order_id', $Orderlists['id'])->select('image')->where('service_order_image_type', $actionStatus['DROP_IMAGE_SERVICE_CENTER'])->get();
         $Orderlists['drop_image_service_center'] = isset($drop_image_service_center) ? $drop_image_service_center : [];
-        $pickup_image_service_center = ServiceOrderImage::where('service_order_id', $Orderlists->id)->select('image')->where('service_order_image_type', $actionStatus['PICKUP_IMAGE_SERVICE_CENTER'])->get();
+        $pickup_image_service_center = ServiceOrderImage::where('service_order_id', $Orderlists['id'])->select('image')->where('service_order_image_type', $actionStatus['PICKUP_IMAGE_SERVICE_CENTER'])->get();
         $Orderlists['pickup_image_service_center'] = isset($pickup_image_service_center) ? $pickup_image_service_center : [];
-        $drop_off_image = ServiceOrderImage::where('service_order_id', $Orderlists->id)->select('image')->where('service_order_image_type', $actionStatus['DROP_IMAGE'])->get();
+        $drop_off_image = ServiceOrderImage::where('service_order_id', $Orderlists['id'])->select('image')->where('service_order_image_type', $actionStatus['DROP_IMAGE'])->get();
         $Orderlists['drop_off_image'] = isset($drop_off_image) ? $drop_off_image : [];
         $Orderlists['image_base_url'] = 'https://pihupickanddrop.com/images/order_img/';
         return $Orderlists;
