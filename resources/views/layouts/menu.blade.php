@@ -38,8 +38,9 @@
                                 aria-hidden="true"></i><span class="hide-menu">Vehicle Variant</span></a></li>
                     <li class="sidebar-item"> <a
                             class="sidebar-link waves-effect waves-dark sidebar-link {{ Route::currentRouteName() == 'service-advisory' || Route::currentRouteName() == 'create-service-advisory' || Route::currentRouteName() == 'edit-service-advisory' ? 'active' : '' }}"
-                            href="{{ route('service-advisory') }}" aria-expanded="false"><i class="me-3 fab fa-servicestack"
-                                aria-hidden="true"></i><span class="hide-menu">Service Advisory</span></a></li>
+                            href="{{ route('service-advisory') }}" aria-expanded="false"><i
+                                class="me-3 fab fa-servicestack" aria-hidden="true"></i><span class="hide-menu">Service
+                                Advisory</span></a></li>
                     <li class="sidebar-item"> <a
                             class="sidebar-link waves-effect waves-dark sidebar-link {{ Route::currentRouteName() == 'location' || Route::currentRouteName() == 'create-location' || Route::currentRouteName() == 'edit-location' ? 'active' : '' }}"
                             href="{{ route('location') }}" aria-expanded="false"><i class="me-3 fa fa-map-marker"
@@ -51,6 +52,20 @@
                             href="{{ route('serviceorder') }}" aria-expanded="false"><i class="me-3 fa fa-globe"
                                 aria-hidden="true"></i><span class="hide-menu">Service Order</span></a></li>
                 @endif
+                <hr>
+                <p style="margin: 10px;font-size: 20px;"> Pages</p>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="{{ route('aboutUs') }}" target="__blank" aria-expanded="false"><i
+                            class="me-3 fa fa-circle" aria-hidden="true"></i><span class="hide-menu">About Us</span></a>
+                </li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="{{ route('termsAndConditions') }}" target="__blank" aria-expanded="false"><i
+                            class="me-3 fa fa-question-circle" aria-hidden="true"></i><span class="hide-menu">Terms And
+                            Conditions</span></a></li>
+                <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link"
+                        href="{{ route('privarcyPolicy') }}" target="__blank" aria-expanded="false"><i
+                            class="me-3 fa fa-globe" aria-hidden="true"></i><span class="hide-menu">Privarcy
+                            Policy</span></a></li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->

@@ -37,6 +37,16 @@ Route::post('forgot-password', [AuthController::class, 'forgotPassword'])->name(
 
 Route::middleware(['auth'])->group(function () {
 
+    Route::get('aboutUs', function () {
+        return view('layouts.common.aboutUs');
+    })->name('aboutUs');
+    Route::get('termsAndConditions', function () {
+        return view('layouts.common.termsAndConditions');
+    })->name('termsAndConditions');
+    Route::get('privarcyPolicy', function () {
+        return view('layouts.common.privarcyPolicy');
+    })->name('privarcyPolicy');
+    
     Route::middleware('role:ROLE_SUPERADMIN|ROLE_EMPLOYEE|ROLE_ADMIN')->group(function () {
 
         Route::get('logout', [AuthController::class, 'logout'])->name('logout');
