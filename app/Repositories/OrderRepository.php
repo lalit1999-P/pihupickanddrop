@@ -146,6 +146,8 @@ class OrderRepository
 
     public function getOrderDetail($order_id)
     {
+        $actionStatus = \Config::get('configvalue.ORDER_ACTION_STATUS');
+
         $Orderlists = Order::where('driver_id', auth()->user()->id)->where("id", $order_id)->with('DriverUsers', 'Varient', 'vehicleModel', 'location', 'pickupImage', 'dropOffImage')->first()->toArray();
         $pickup_image = ServiceOrderImage::where('service_order_id', $Orderlists->id)->select('image')->where('service_order_image_type', $actionStatus['PICKUP_IMAGE'])->get();
         $Orderlists['pickup_image'] = isset($pickup_image) ? $pickup_image : [];
